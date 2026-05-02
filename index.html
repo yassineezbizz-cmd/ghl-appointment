@@ -589,7 +589,23 @@ async function loadUpcoming() {
     const end=new Date(); end.setMonth(end.getMonth()+3);
     const r=await fetch(`https://services.leadconnectorhq.com/calendars/events?locationId=${CONFIG.GHL_LOCATION_ID}&calendarId=${CONFIG.GHL_CALENDAR_ID}&startTime=${now.getTime()}&endTime=${end.getTime()}&includeAll=true`,{headers:GHL_HEADERS});
     const data=await r.json();
-    allUpcoming=(data.events||data.appointments||[]).sort((a,b)=>new Date(a.startTime)-new Date(b.startTime));
+    const events=(data.events||data.appointments||[]).sort((a,b)=>new Date(a.startTime)-new Date(b.startTime));
+    // Fetch contact names for events that have a contactId
+    const contactCache={};
+    for(const a of events){
+      const cid=a.contactId||a.contact?.id;
+      if(cid && !contactCache[cid]){
+        try{
+          const cr=await fetch(`https://services.leadconnectorhq.com/contacts/${cid}`,{headers:GHL_HEADERS});
+          const cd=await cr.json();
+          const c=cd.contact||cd;
+          contactCache[cid]=`${c.firstName||''} ${c.lastName||''}`.trim()||c.email||c.phone||'Unknown';
+        }catch(e){contactCache[cid]='Unknown';}
+      }
+      a._contactName=cid?contactCache[cid]:'Unknown Contact';
+      a._contactId=cid||'unknown';
+    }
+    allUpcoming=events;
     renderUpcoming(allUpcoming);
   } catch(e){document.getElementById('upcomingList').innerHTML=`<div class="loading-state" style="color:var(--red)">Error loading: ${e.message}</div>`;}
 }
@@ -599,8 +615,8 @@ function renderUpcoming(appts) {
   if(!appts.length){el.innerHTML='<div class="empty-state"><div class="empty-state-icon">📭</div><div class="empty-state-title">No upcoming appointments</div><div>Book one using the Book tab</div></div>';return;}
   const groups={};
   appts.forEach(a=>{
-    const key=a.contactId||'unknown';
-    const name=a.contactName||a.contact?.name||'Unknown Contact';
+    const key=a._contactId||'unknown';
+    const name=a._contactName||'Unknown Contact';
     if(!groups[key]) groups[key]={name,ids:[],appts:[]};
     groups[key].appts.push(a);
     groups[key].ids.push(a.id);
@@ -652,7 +668,7 @@ function selectGroup(gKey) {
 async function bulkDeleteSelected() {
   const checked=[...document.querySelectorAll('.appt-checkbox:checked')];
   if(!checked.length){alert('Select at least one appointment first.');return;}
-  if(!confirm(`Delete ${checked.length} selected appointment(s)?`)) return;
+  
   let failed=0;
   for(const cb of checked){ const ok=await deleteAppt(cb.dataset.id,false); if(!ok) failed++; }
   if(failed) alert(`${failed} could not be deleted.`);
@@ -661,7 +677,7 @@ async function bulkDeleteSelected() {
 
 async function deleteGroup(ids) {
   const idArr=ids.split(',');
-  if(!confirm(`Delete all ${idArr.length} appointments for this client?`)) return;
+  
   let failed=0;
   for(const id of idArr){ const ok=await deleteAppt(id,false); if(!ok) failed++; }
   if(failed) alert(`${failed} could not be deleted.`);
@@ -755,7 +771,7 @@ function filterRecurring(q) {
 
 // ── DELETE SINGLE ──
 async function deleteAppt(id, reload=true) {
-  if(!confirm('Delete this appointment?')) return;
+  
   try {
     const r=await fetch(`https://services.leadconnectorhq.com/calendars/events/${id}`,{method:'DELETE',headers:GHL_HEADERS});
     if(!r.ok) throw new Error('Delete failed');
