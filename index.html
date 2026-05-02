@@ -698,7 +698,7 @@ function filterRecurring(q) {
 async function deleteAppt(id, reload=true) {
   if(!confirm('Delete this appointment?')) return;
   try {
-    const r=await fetch(`https://services.leadconnectorhq.com/calendars/events/appointments/${id}`,{method:'DELETE',headers:GHL_HEADERS});
+    const r=await fetch(`https://services.leadconnectorhq.com/calendars/events/${id}`,{method:'DELETE',headers:GHL_HEADERS});
     if(!r.ok) throw new Error('Delete failed');
     if(reload){loadUpcoming(); loadRecurring();}
     return true;
