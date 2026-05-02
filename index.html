@@ -694,7 +694,7 @@ function openEditById(id) {
 
 
 function filterUpcoming(q) {
-  const filtered=allUpcoming.filter(a=>(a.title||'').toLowerCase().includes(q.toLowerCase())||(a.contactName||'').toLowerCase().includes(q.toLowerCase()));
+  const filtered=allUpcoming.filter(a=>(a.title||'').toLowerCase().includes(q.toLowerCase())||(a._contactName||'').toLowerCase().includes(q.toLowerCase()));
   renderUpcoming(filtered);
 }
 
