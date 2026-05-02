@@ -244,6 +244,13 @@
       <button class="choice-btn" data-val="Every 3 Wks">Every 3 Wks</button>
       <button class="choice-btn" data-val="Every 4 Wks">Every 4 Wks</button>
     </div>
+    <div id="repeatWrap" style="display:none; margin-top:16px;">
+      <label class="form-label" style="margin-top:4px;">How many cleanings to book? <span class="req">*</span></label>
+      <div style="display:flex; align-items:center; gap:12px; margin-top:6px;">
+        <input type="number" class="input" id="repeatCount" min="2" max="52" value="4" style="max-width:90px;">
+        <span id="repeatSummary" style="font-size:13px; color:var(--gray-600);"></span>
+      </div>
+    </div>
   </div>
 
   <!-- 4. NOTES -->
@@ -444,34 +451,33 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
 
   try {
     const [h,m] = selectedTime.split(':').map(Number);
-    const start = new Date(selectedDate); start.setHours(h,m,0,0);
     const durMins = {'1h':60,'1.5h':90,'2h':120,'3h':180,'4h':240}[duration]||120;
-    const end = new Date(start.getTime() + durMins*60000);
+    const freqDaysMap = {'One Time':0,'Weekly':7,'Bi-Weekly':14,'Every 3 Wks':21,'Every 4 Wks':28};
+    const intervalDays = freqDaysMap[frequency]||0;
+    const repeatCount = frequency === 'One Time' ? 1 : (parseInt(document.getElementById('repeatCount').value)||4);
+    const title = document.getElementById('apptTitle').value.trim();
+    const notes = document.getElementById('jobNotes').value.trim();
+    const customFields = [
+      { id: 'job_value', value: document.getElementById('jobValue').value||'0' },
+      { id: 'service_type', value: document.getElementById('serviceType').value },
+      { id: 'cleaning_frequency', value: frequency },
+      { id: 'send_recurring_upsell', value: upsell },
+      { id: 'request_review', value: review },
+    ];
 
-    const res = await fetch('https://services.leadconnectorhq.com/calendars/events/appointments', {
-      method: 'POST',
-      headers: { 'Authorization': `Bearer ${CONFIG.GHL_API_KEY}`, 'Content-Type': 'application/json', 'Version': '2021-07-28' },
-      body: JSON.stringify({
-        calendarId: CONFIG.GHL_CALENDAR_ID,
-        locationId: CONFIG.GHL_LOCATION_ID,
-        contactId,
-        startTime: start.toISOString(),
-        endTime: end.toISOString(),
-        title: document.getElementById('apptTitle').value.trim(),
-        appointmentStatus: 'confirmed',
-        notes: document.getElementById('jobNotes').value.trim(),
-        customField: [
-          { id: 'job_value', value: document.getElementById('jobValue').value||'0' },
-          { id: 'service_type', value: document.getElementById('serviceType').value },
-          { id: 'cleaning_frequency', value: frequency },
-          { id: 'send_recurring_upsell', value: upsell },
-          { id: 'request_review', value: review },
-        ]
-      })
-    });
-    if (!res.ok) { const e=await res.json(); throw new Error(e.message||'GHL error'); }
-    const apptData = await res.json();
-    const apptId = apptData.id || apptData.appointment?.id;
+    let apptId = null;
+    for (let i = 0; i < repeatCount; i++) {
+      const start = new Date(selectedDate); start.setHours(h,m,0,0);
+      start.setDate(start.getDate() + i * intervalDays);
+      const end = new Date(start.getTime() + durMins*60000);
+      const res = await fetch('https://services.leadconnectorhq.com/calendars/events/appointments', {
+        method: 'POST',
+        headers: { 'Authorization': `Bearer ${CONFIG.GHL_API_KEY}`, 'Content-Type': 'application/json', 'Version': '2021-07-28' },
+        body: JSON.stringify({ calendarId: CONFIG.GHL_CALENDAR_ID, locationId: CONFIG.GHL_LOCATION_ID, contactId, startTime: start.toISOString(), endTime: end.toISOString(), title, appointmentStatus: 'confirmed', notes, customField: customFields })
+      });
+      if (!res.ok) { const e=await res.json(); throw new Error(`Appointment ${i+1} failed: ${e.message||'GHL error'}`); }
+      if (i === 0) { const d=await res.json(); apptId = d.id || d.appointment?.id; }
+    }
 
     // Trigger workflows
     const headers = { 'Authorization': `Bearer ${CONFIG.GHL_API_KEY}`, 'Version': '2021-07-28' };
@@ -488,7 +494,7 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
       }).catch(()=>{});
     }
 
-    sucEl.textContent = `✅ Booked for ${contactName} — ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} at ${document.querySelector('.time-btn.selected')?.textContent||selectedTime}`;
+    const apptLabel = repeatCount > 1 ? `✅ ${repeatCount} appointments booked for ${contactName} starting ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}` : `✅ Booked for ${contactName} — ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})} at ${document.querySelector('.time-btn.selected')?.textContent||selectedTime}`; sucEl.textContent = apptLabel;
     sucEl.classList.add('show');
     setTimeout(()=>location.reload(), 3500);
 
@@ -500,11 +506,27 @@ document.getElementById('submitBtn').addEventListener('click', async () => {
   }
 });
 
+// ── REPEAT COUNT ──
+const freqDays = {'Weekly':7,'Bi-Weekly':14,'Every 3 Wks':21,'Every 4 Wks':28};
+function updateRepeatSummary() {
+  const count = parseInt(document.getElementById('repeatCount').value)||4;
+  const days = freqDays[frequency];
+  if (!days || !selectedDate) { document.getElementById('repeatSummary').textContent = count + ' appointments'; return; }
+  const last = new Date(selectedDate.getTime() + (count-1)*days*86400000);
+  document.getElementById('repeatSummary').textContent = count + ' appointments — last one ' + last.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
+}
+document.getElementById('repeatCount').addEventListener('input', updateRepeatSummary);
+
 // Init
 initCal();
 renderTimes();
 initChoiceGroup('durGroup', v => duration=v);
-initChoiceGroup('freqGroup', v => frequency=v);
+initChoiceGroup('freqGroup', v => {
+  frequency=v;
+  const wrap = document.getElementById('repeatWrap');
+  if (v === 'One Time') { wrap.style.display='none'; }
+  else { wrap.style.display='block'; updateRepeatSummary(); }
+});
 </script>
 </body>
 </html>
