@@ -641,34 +641,25 @@ document.getElementById('submitBtn').addEventListener('click',async()=>{
 
       // Create booking record in GHL custom object
       try {
+        // Try the correct GHL v2 objects API format
         const bookingPayload = {
-          properties: [
-            { key: 'booking', value: title },
-            { key: 'job_value', value: String(jobVal) },
-            { key: 'service_type', value: document.getElementById('serviceType').value },
-            { key: 'cleaning_frequency', value: frequency },
-            { key: 'send_recurring_upsell', value: upsell },
-            { key: 'request_review', value: review },
-          ]
+          name: title,
+          fields: {
+            booking: title,
+            job_value: jobVal,
+            service_type: document.getElementById('serviceType').value,
+            cleaning_frequency: frequency,
+            send_recurring_upsell: upsell,
+            request_review: review,
+          },
+          contactId: contactId,
         };
         const bookingRes = await fetch(
           `https://services.leadconnectorhq.com/objects/${CONFIG.GHL_BOOKINGS_OBJECT_ID}/records`,
           { method:'POST', headers:GHL_H, body:JSON.stringify(bookingPayload) }
         );
-        if(bookingRes.ok){
-          const bookingData = await bookingRes.json();
-          const recordId = bookingData.id || bookingData.record?.id;
-          // Associate booking record with the contact
-          if(recordId && contactId){
-            await fetch(
-              `https://services.leadconnectorhq.com/objects/${CONFIG.GHL_BOOKINGS_OBJECT_ID}/records/${recordId}/associations/contact/${contactId}`,
-              { method:'POST', headers:GHL_H }
-            ).catch(()=>{});
-          }
-        } else {
-          const errData = await bookingRes.json().catch(()=>({}));
-          console.warn('Booking record failed:', errData);
-        }
+        const bookingData = await bookingRes.json();
+        console.log('Booking API response:', bookingRes.status, JSON.stringify(bookingData));
       } catch(e){ console.warn('Booking record error:', e); }
     }
 
