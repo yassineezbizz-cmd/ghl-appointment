@@ -960,7 +960,6 @@ async function loadRecurring(){
       const isPatternRecurring=patternGroups[patternKey]?.length>1;
       const rid=match?match[1]:(isPatternRecurring?`pattern_${patternKey}`:null);
       if(!rid) continue;
-      const cid=a.contactId||a.contact?.id;
       if(cid&&!contactCache[cid]){
         try{
           const cr=await fetch(`https://services.leadconnectorhq.com/contacts/${cid}`,{headers:GHL_H});
