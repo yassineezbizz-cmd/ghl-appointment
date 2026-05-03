@@ -669,6 +669,9 @@ async function loadCustomers(){
   }catch(e){document.getElementById('customerList').innerHTML=`<div class="loading-state" style="color:var(--red)">Error: ${e.message}</div>`;}
 }
 
+const APPTS_PER_PAGE=4;
+const custPageState={};
+
 function renderCustomers(groups){
   const el=document.getElementById('customerList');
   const keys=Object.keys(groups);
@@ -681,53 +684,79 @@ function renderCustomers(groups){
     const nextAppt=g.appts[0];
     const nextDt=nextAppt?new Date(nextAppt.startTime):null;
     const nextStr=nextDt?nextDt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+nextDt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}):'';
-    const recurringId=(nextAppt?.notes||'').match(/recurring_id:(rec_\d+)/)?.[1];
-
     return `<div class="cust-card" id="cc-${cid}">
       <div class="cust-header" onclick="toggleCustomer('${cid}')">
         <div style="display:flex;align-items:center;flex:1;">
           <div class="cust-avatar" style="background:${color}">${ini}</div>
           <div class="cust-info">
             <div class="cust-name">${c.name}</div>
-            <div class="cust-meta">${g.appts.length} appt${g.appts.length!==1?'s':''} · Next: ${nextStr||'—'}</div>
+            <div class="cust-meta">${g.appts.length} appointment${g.appts.length!==1?'s':''} · Next: ${nextStr||'—'}</div>
           </div>
         </div>
         <span class="cust-chevron">▾</span>
       </div>
-      <div class="cust-actions">
-        <button class="btn-sm green" onclick="openReschedule('${cid}')">📅 Reschedule</button>
-        <button class="btn-sm red" onclick="openCancel('${cid}')">✕ Cancel</button>
-      </div>
-      <div class="cust-appts" id="ca-${cid}">
-        ${g.appts.map(a=>{
-          const dt=new Date(a.startTime);
-          const ds=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-          const ts=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-          const status=a.appointmentStatus||a.status||'confirmed';
-          return `<div class="appt-row">
-            <div class="appt-row-left">
-              <div>
-                <div class="appt-row-date">${a.title||'Appointment'}</div>
-                <div class="appt-row-time">📅 ${ds} · ${ts}</div>
-              </div>
-              <span class="abadge ab-${status}">${status}</span>
-            </div>
-            <div class="appt-row-actions">
-              <button class="btn-sm" onclick="openEditSingle('${a.id}')">✏️ Edit</button>
-              <button class="btn-sm red" onclick="deleteSingleAppt('${a.id}','${cid}')">🗑</button>
-            </div>
-          </div>`;
-        }).join('')}
+      <div class="cust-appts" id="ca-${cid}" style="display:none;">
+        <div class="cust-actions">
+          <button class="btn-sm green" onclick="event.stopPropagation();openReschedule('${cid}')">📅 Reschedule</button>
+          <button class="btn-sm red" onclick="event.stopPropagation();openCancel('${cid}')">✕ Cancel</button>
+        </div>
+        <div id="appt-list-${cid}"></div>
+        <div id="appt-more-${cid}"></div>
       </div>
     </div>`;
   }).join('');
 }
 
+function renderApptPage(cid){
+  const g=allCustomers[cid];
+  if(!g) return;
+  if(!custPageState[cid]) custPageState[cid]=1;
+  const page=custPageState[cid];
+  const visible=g.appts.slice(0,page*APPTS_PER_PAGE);
+  const hasMore=g.appts.length>visible.length;
+
+  document.getElementById(`appt-list-${cid}`).innerHTML=visible.map(a=>{
+    const dt=new Date(a.startTime);
+    const ds=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    const ts=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    const status=a.appointmentStatus||a.status||'confirmed';
+    return `<div class="appt-row">
+      <div class="appt-row-left">
+        <div>
+          <div class="appt-row-date">${a.title||'Appointment'}</div>
+          <div class="appt-row-time">📅 ${ds} · ${ts}</div>
+        </div>
+        <span class="abadge ab-${status}">${status}</span>
+      </div>
+      <div class="appt-row-actions">
+        <button class="btn-sm" onclick="openEditSingle('${a.id}')">✏️</button>
+        <button class="btn-sm red" onclick="deleteSingleAppt('${a.id}','${cid}')">🗑</button>
+      </div>
+    </div>`;
+  }).join('');
+
+  const moreEl=document.getElementById(`appt-more-${cid}`);
+  if(hasMore){
+    moreEl.innerHTML=`<div style="padding:10px 16px;border-top:1px solid var(--gray-100);">
+      <button class="btn-sm" style="width:100%;text-align:center;" onclick="showMore('${cid}')">Show more (${g.appts.length-visible.length} remaining)</button>
+    </div>`;
+  } else {
+    moreEl.innerHTML='';
+  }
+}
+
+function showMore(cid){
+  custPageState[cid]=(custPageState[cid]||1)+1;
+  renderApptPage(cid);
+}
+
 function toggleCustomer(cid){
   const hdr=document.querySelector(`#cc-${cid} .cust-header`);
   const appts=document.getElementById(`ca-${cid}`);
-  hdr.classList.toggle('open');
-  appts.classList.toggle('open');
+  const isOpen=appts.style.display==='block';
+  appts.style.display=isOpen?'none':'block';
+  hdr.classList.toggle('open',!isOpen);
+  if(!isOpen) renderApptPage(cid);
 }
 
 function filterCustomers(q){
@@ -916,10 +945,21 @@ async function loadRecurring(){
     const events=data.events||data.appointments||[];
     const groups={};
     const contactCache={};
+    // Group by recurring_id tag OR by contact+title pattern (for legacy appointments)
+    const patternGroups={};
+    for(const a of events){
+      const cid=a.contactId||a.contact?.id||'';
+      const patternKey=`${cid}__${(a.title||'').trim()}`;
+      if(!patternGroups[patternKey]) patternGroups[patternKey]=[];
+      patternGroups[patternKey].push(a);
+    }
     for(const a of events){
       const match=(a.notes||'').match(/recurring_id:(rec_\d+)/);
-      if(!match) continue;
-      const rid=match[1];
+      const cid=a.contactId||a.contact?.id||'';
+      const patternKey=`${cid}__${(a.title||'').trim()}`;
+      const isPatternRecurring=patternGroups[patternKey]?.length>1;
+      const rid=match?match[1]:(isPatternRecurring?`pattern_${patternKey}`:null);
+      if(!rid) continue;
       const cid=a.contactId||a.contact?.id;
       if(cid&&!contactCache[cid]){
         try{
