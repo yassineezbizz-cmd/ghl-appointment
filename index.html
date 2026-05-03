@@ -418,14 +418,36 @@ const GHL_H={'Authorization':`Bearer ${CONFIG.GHL_API_KEY}`,'Version':'2021-07-2
     <div class="mh"><div class="mt">Cancel Appointments</div><button class="mc" onclick="closeModal('cancelModal')">✕</button></div>
     <div class="mb">
       <input type="hidden" id="cancelSeriesId">
-      <p style="font-size:13px;color:var(--gray-600);margin-bottom:16px;">Choose what to cancel for this customer:</p>
-      <div style="display:flex;flex-direction:column;gap:10px;">
-        <button class="btn-sm" style="text-align:left;padding:12px 16px;" onclick="cancelScope('future')">📅 Cancel all <strong>future</strong> appointments only</button>
-        <button class="btn-sm red" style="text-align:left;padding:12px 16px;" onclick="cancelScope('all')">🗑 Cancel <strong>all</strong> appointments (entire series)</button>
+      <div id="cancelCustomerInfo" style="margin-bottom:16px;"></div>
+      <p style="font-size:13px;font-weight:600;color:var(--gray-900);margin-bottom:10px;">What would you like to cancel?</p>
+      <div style="display:flex;flex-direction:column;gap:8px;">
+        <div onclick="cancelScope('future')" style="background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .15s;" onmouseover="this.style.borderColor='var(--amber)';this.style.background='#fffbeb'" onmouseout="this.style.borderColor='var(--gray-200)';this.style.background='var(--gray-50)'">
+          <div style="font-weight:700;font-size:13px;color:var(--gray-900);">📅 Cancel future appointments only</div>
+          <div style="font-size:11px;color:var(--gray-400);margin-top:3px;">Keeps past appointments, cancels everything from today forward</div>
+        </div>
+        <div onclick="cancelScope('all')" style="background:#fff5f5;border:1.5px solid #fca5a5;border-radius:12px;padding:14px 16px;cursor:pointer;transition:all .15s;" onmouseover="this.style.background='var(--red-light)';this.style.borderColor='var(--red)'" onmouseout="this.style.background='#fff5f5';this.style.borderColor='#fca5a5'">
+          <div style="font-weight:700;font-size:13px;color:var(--red);">🗑 Cancel all appointments</div>
+          <div style="font-size:11px;color:#f87171;margin-top:3px;">Removes the entire series including past appointments</div>
+        </div>
       </div>
       <div class="em" id="cancelError" style="margin-top:12px;"></div>
     </div>
     <div class="mf"><button class="btn-cancel-m" onclick="closeModal('cancelModal')">Close</button></div>
+  </div>
+</div>
+
+<!-- SINGLE APPOINTMENT CANCEL CONFIRM MODAL -->
+<div class="mo" id="confirmDeleteModal">
+  <div class="md" style="max-width:380px;">
+    <div class="mh"><div class="mt">Cancel Appointment</div><button class="mc" onclick="closeModal('confirmDeleteModal')">✕</button></div>
+    <div class="mb">
+      <div id="confirmDeleteInfo"></div>
+      <div class="em" id="confirmDeleteError" style="margin-top:10px;"></div>
+    </div>
+    <div class="mf">
+      <button class="btn-cancel-m" onclick="closeModal('confirmDeleteModal')">Keep It</button>
+      <button class="btn-danger-m" id="confirmDeleteBtn">Yes, Cancel</button>
+    </div>
   </div>
 </div>
 
@@ -729,8 +751,8 @@ function renderApptPage(cid){
         <span class="abadge ab-${status}">${status}</span>
       </div>
       <div class="appt-row-actions">
-        <button class="btn-sm" onclick="openEditSingle('${a.id}')">✏️</button>
-        <button class="btn-sm red" onclick="deleteSingleAppt('${a.id}','${cid}')">🗑</button>
+        <button class="btn-sm" onclick="openEditSingle('${a.id}')">✏️ Edit</button>
+        <button class="btn-sm red" onclick="deleteSingleAppt('${a.id}','${cid}')">✕ Cancel</button>
       </div>
     </div>`;
   }).join('');
@@ -864,8 +886,24 @@ async function saveReschedule(){
 
 // ── CANCEL ──
 function openCancel(cid){
+  const g=allCustomers[cid];
   document.getElementById('cancelSeriesId').value=cid;
   document.getElementById('cancelError').classList.remove('show');
+  if(g){
+    const c=g.contact;
+    const color=getColor(c.name);
+    const ini=initials(c.name);
+    const futureAppts=g.appts.filter(a=>new Date(a.startTime)>new Date());
+    const freq=g.appts[0]?.notes?.match(/cleaning_frequency:([^\n]+)/)?.[1]||'—';
+    document.getElementById('cancelCustomerInfo').innerHTML=`
+      <div style="display:flex;align-items:center;gap:12px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:12px;padding:14px 16px;">
+        <div style="width:42px;height:42px;border-radius:10px;background:${color};color:white;font-weight:800;font-size:15px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">${ini}</div>
+        <div>
+          <div style="font-weight:700;font-size:15px;color:var(--gray-900);">${c.name}</div>
+          <div style="font-size:12px;color:var(--gray-400);margin-top:2px;">${g.appts.length} total · ${futureAppts.length} upcoming</div>
+        </div>
+      </div>`;
+  }
   document.getElementById('cancelModal').classList.add('open');
 }
 
@@ -926,12 +964,33 @@ async function saveEdit(){
   }catch(e){errEl.textContent='Error: '+e.message;errEl.classList.add('show');}
 }
 
-async function deleteSingleAppt(apptId,cid){
-  try{
-    const res=await fetch(`https://services.leadconnectorhq.com/calendars/events/${apptId}`,{method:'DELETE',headers:GHL_H});
-    if(!res.ok) throw new Error('Delete failed');
-    loadCustomers();
-  }catch(e){alert('Error: '+e.message);}
+function deleteSingleAppt(apptId,cid){
+  const g=allCustomers[cid];
+  const appt=g?.appts.find(a=>a.id===apptId);
+  const dt=appt?new Date(appt.startTime):null;
+  const dateStr=dt?dt.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})+' at '+dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}):'this appointment';
+  const contactName=g?.contact?.name||'this customer';
+  document.getElementById('confirmDeleteInfo').innerHTML=`
+    <div style="text-align:center;padding:8px 0 16px;">
+      <div style="font-size:32px;margin-bottom:12px;">🗓️</div>
+      <div style="font-weight:700;font-size:15px;color:var(--gray-900);margin-bottom:6px;">Cancel this appointment?</div>
+      <div style="font-size:13px;color:var(--gray-600);">${contactName}</div>
+      <div style="font-size:14px;font-weight:600;color:var(--gray-900);margin-top:4px;">${dateStr}</div>
+      <div style="font-size:12px;color:var(--gray-400);margin-top:8px;">This cannot be undone.</div>
+    </div>`;
+  document.getElementById('confirmDeleteError').classList.remove('show');
+  document.getElementById('confirmDeleteBtn').onclick=async()=>{
+    try{
+      const res=await fetch(`https://services.leadconnectorhq.com/calendars/events/${apptId}`,{method:'DELETE',headers:GHL_H});
+      if(!res.ok) throw new Error('Delete failed');
+      closeModal('confirmDeleteModal');
+      loadCustomers();
+    }catch(e){
+      document.getElementById('confirmDeleteError').textContent='Error: '+e.message;
+      document.getElementById('confirmDeleteError').classList.add('show');
+    }
+  };
+  document.getElementById('confirmDeleteModal').classList.add('open');
 }
 
 // ── RECURRING ──
