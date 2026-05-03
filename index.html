@@ -644,8 +644,7 @@ document.getElementById('submitBtn').addEventListener('click',async()=>{
         // Try the correct GHL v2 objects API format
         const bookingPayload = {
           locationId: CONFIG.GHL_LOCATION_ID,
-          name: title,
-          fields: {
+          properties: {
             booking: title,
             job_value: jobVal,
             service_type: document.getElementById('serviceType').value,
@@ -653,7 +652,6 @@ document.getElementById('submitBtn').addEventListener('click',async()=>{
             send_recurring_upsell: upsell,
             request_review: review,
           },
-          contactId: contactId,
         };
         const bookingRes = await fetch(
           `https://services.leadconnectorhq.com/objects/${CONFIG.GHL_BOOKINGS_OBJECT_ID}/records`,
