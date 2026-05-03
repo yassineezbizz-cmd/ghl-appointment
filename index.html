@@ -180,12 +180,13 @@
 
 <script>
   const CONFIG = {
-    GHL_API_KEY: 'pit-a6618c89-6d9f-42ff-aaad-11d1119a392e',
+    GHL_API_KEY: 'pit-b37dad50-9fb2-427e-9f50-daa59787f414',
     GHL_LOCATION_ID: 'iPB4mkp2CJHnxCVoyVHk',
     GHL_CALENDAR_ID: 'vxbDPpNJQr2AtleAU5UP',
     WORKFLOW_UPSELL_ID: 'YOUR_UPSELL_WORKFLOW_ID',
     WORKFLOW_REVIEW_ID: 'YOUR_REVIEW_WORKFLOW_ID',
     SHEETS_WEBHOOK_URL: '',
+    GHL_BOOKINGS_OBJECT_ID: '69d933514bff205407e8ef7a',
   };
   const GHL_HEADERS = { 'Authorization': `Bearer ${CONFIG.GHL_API_KEY}`, 'Version': '2021-07-28', 'Content-Type': 'application/json' };
 </script>
@@ -572,6 +573,29 @@ document.getElementById('submitBtn').addEventListener('click',async()=>{
       });
       if(!res.ok){const e=await res.json();throw new Error(`Appt ${i+1} failed: ${e.message||'GHL error'}`);}
       if(i===0){const d=await res.json();apptId=d.id||d.appointment?.id;}
+    }
+
+    // Create Booking record in GHL custom object for revenue tracking
+    for(let i=0;i<repeatCount;i++){
+      const bookingDate=new Date(selectedDate); bookingDate.setHours(h,m,0,0);
+      bookingDate.setDate(bookingDate.getDate()+i*intervalDays);
+      await fetch(`https://services.leadconnectorhq.com/objects/${CONFIG.GHL_BOOKINGS_OBJECT_ID}/records`,{
+        method:'POST', headers:GHL_HEADERS,
+        body:JSON.stringify({
+          properties:{
+            job_value: parseFloat(document.getElementById('jobValue').value||'0'),
+            service_type: document.getElementById('serviceType').value,
+            cleaning_frequency: frequency,
+            send_recurring_upsell: upsell,
+            request_review: review,
+            booking: title,
+          },
+          associations:[{
+            objectType:'contact',
+            objectId: contactId,
+          }]
+        })
+      }).catch(e=>console.warn('Booking record failed:',e));
     }
 
     const label=repeatCount>1?`✅ ${repeatCount} appointments booked for ${contactName} starting ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`:`✅ Booked for ${contactName} — ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`;
