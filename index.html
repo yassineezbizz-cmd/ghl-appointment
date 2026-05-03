@@ -639,14 +639,37 @@ document.getElementById('submitBtn').addEventListener('click',async()=>{
       if(!res.ok){const e=await res.json();throw new Error(`Appt ${i+1} failed: ${e.message||'GHL error'}`);}
       if(i===0){const d=await res.json();apptId=d.id||d.appointment?.id;}
 
-      // Create booking record
-      await fetch(`https://services.leadconnectorhq.com/objects/${CONFIG.GHL_BOOKINGS_OBJECT_ID}/records`,{
-        method:'POST',headers:GHL_H,
-        body:JSON.stringify({
-          properties:{job_value:jobVal,service_type:document.getElementById('serviceType').value,cleaning_frequency:frequency,send_recurring_upsell:upsell,request_review:review,booking:title},
-          associations:[{objectType:'contact',objectId:contactId}]
-        })
-      }).catch(e=>console.warn('Booking record:',e));
+      // Create booking record in GHL custom object
+      try {
+        const bookingPayload = {
+          properties: [
+            { key: 'booking', value: title },
+            { key: 'job_value', value: String(jobVal) },
+            { key: 'service_type', value: document.getElementById('serviceType').value },
+            { key: 'cleaning_frequency', value: frequency },
+            { key: 'send_recurring_upsell', value: upsell },
+            { key: 'request_review', value: review },
+          ]
+        };
+        const bookingRes = await fetch(
+          `https://services.leadconnectorhq.com/objects/${CONFIG.GHL_BOOKINGS_OBJECT_ID}/records`,
+          { method:'POST', headers:GHL_H, body:JSON.stringify(bookingPayload) }
+        );
+        if(bookingRes.ok){
+          const bookingData = await bookingRes.json();
+          const recordId = bookingData.id || bookingData.record?.id;
+          // Associate booking record with the contact
+          if(recordId && contactId){
+            await fetch(
+              `https://services.leadconnectorhq.com/objects/${CONFIG.GHL_BOOKINGS_OBJECT_ID}/records/${recordId}/associations/contact/${contactId}`,
+              { method:'POST', headers:GHL_H }
+            ).catch(()=>{});
+          }
+        } else {
+          const errData = await bookingRes.json().catch(()=>({}));
+          console.warn('Booking record failed:', errData);
+        }
+      } catch(e){ console.warn('Booking record error:', e); }
     }
 
     const label=repeatCount>1?`✅ ${repeatCount} appointments booked for ${contactName} starting ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`:`✅ Booked for ${contactName} on ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`;
