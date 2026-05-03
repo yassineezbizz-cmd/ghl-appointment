@@ -7,188 +7,199 @@
 <link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
-    --green: #22c55e; --green-dark: #16a34a; --green-light: #dcfce7; --green-mid: #bbf7d0;
-    --bg: #f0faf4; --white: #ffffff;
-    --gray-50: #f8fafc; --gray-100: #f1f5f9; --gray-200: #e2e8f0; --gray-300: #cbd5e1;
-    --gray-400: #94a3b8; --gray-600: #475569; --gray-900: #0f172a;
-    --red: #ef4444; --red-light: #fee2e2; --amber: #f59e0b;
+    --green:#22c55e;--green-dark:#16a34a;--green-light:#dcfce7;--green-mid:#bbf7d0;
+    --bg:#f0faf4;--white:#fff;
+    --gray-50:#f8fafc;--gray-100:#f1f5f9;--gray-200:#e2e8f0;--gray-300:#cbd5e1;
+    --gray-400:#94a3b8;--gray-600:#475569;--gray-900:#0f172a;
+    --red:#ef4444;--red-light:#fee2e2;--amber:#f59e0b;--blue:#3b82f6;
   }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'DM Sans', sans-serif; background: var(--bg); min-height: 100vh; padding: 20px 16px 60px; }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{font-family:'DM Sans',sans-serif;background:var(--bg);min-height:100vh;padding:20px 16px 60px;}
 
-  /* TOPBAR */
-  .topbar { max-width: 680px; margin: 0 auto 16px; display: flex; align-items: center; justify-content: space-between; }
-  .brand { font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 800; }
-  .brand em { color: var(--green); font-style: normal; }
-  .sub-acct { font-size: 12px; color: var(--gray-400); }
+  .topbar{max-width:700px;margin:0 auto 14px;display:flex;align-items:center;justify-content:space-between;}
+  .brand{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;}
+  .brand em{color:var(--green);font-style:normal;}
+  .sub-acct{font-size:12px;color:var(--gray-400);}
 
-  /* TABS */
-  .tabs { max-width: 680px; margin: 0 auto 16px; display: flex; gap: 4px; background: var(--white); border: 1px solid var(--gray-200); border-radius: 12px; padding: 4px; }
-  .tab { flex: 1; padding: 9px; border: none; border-radius: 9px; background: none; font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--gray-400); cursor: pointer; transition: all .15s; }
-  .tab.active { background: var(--green); color: white; }
+  .tabs{max-width:700px;margin:0 auto 14px;display:flex;gap:4px;background:var(--white);border:1px solid var(--gray-200);border-radius:12px;padding:4px;}
+  .tab{flex:1;padding:9px;border:none;border-radius:9px;background:none;font-family:'DM Sans',sans-serif;font-size:13px;font-weight:600;color:var(--gray-400);cursor:pointer;transition:all .15s;}
+  .tab.active{background:var(--green);color:white;}
 
-  /* CARD */
-  .card { background: var(--white); border-radius: 18px; border: 1px solid var(--gray-200); max-width: 680px; margin: 0 auto; overflow: hidden; box-shadow: 0 4px 24px rgba(0,0,0,.06); }
-  .card-header { background: linear-gradient(135deg, #15803d, #22c55e); padding: 20px 24px; color: white; }
-  .card-header-title { font-family: 'Syne', sans-serif; font-size: 18px; font-weight: 800; margin-bottom: 2px; }
-  .card-header-sub { font-size: 12px; opacity: .8; }
+  .card{background:var(--white);border-radius:18px;border:1px solid var(--gray-200);max-width:700px;margin:0 auto;overflow:hidden;box-shadow:0 4px 24px rgba(0,0,0,.06);}
+  .card-header{background:linear-gradient(135deg,#15803d,#22c55e);padding:20px 24px;color:white;}
+  .card-header-title{font-family:'Syne',sans-serif;font-size:18px;font-weight:800;margin-bottom:2px;}
+  .card-header-sub{font-size:12px;opacity:.8;}
 
-  /* SECTIONS */
-  .section { padding: 18px 24px; border-bottom: 1px solid var(--gray-100); }
-  .section:last-child { border-bottom: none; }
-  .section-hdr { display: flex; align-items: center; gap: 10px; margin-bottom: 14px; }
-  .step-dot { width: 24px; height: 24px; background: var(--green); border-radius: 50%; color: white; font-weight: 700; font-size: 11px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .sec-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 14px; }
-  .sec-sub { font-size: 11px; color: var(--gray-400); margin-top: 1px; }
+  .section{padding:18px 24px;border-bottom:1px solid var(--gray-100);}
+  .section:last-child{border-bottom:none;}
+  .sec-hdr{display:flex;align-items:center;gap:10px;margin-bottom:14px;}
+  .step-dot{width:24px;height:24px;background:var(--green);border-radius:50%;color:white;font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+  .sec-title{font-family:'Syne',sans-serif;font-weight:700;font-size:14px;}
+  .sec-sub{font-size:11px;color:var(--gray-400);margin-top:1px;}
 
-  /* FORM */
-  .form-group { margin-bottom: 12px; }
-  .form-label { font-size: 12px; font-weight: 600; color: var(--gray-600); margin-bottom: 5px; display: block; }
-  .req { color: var(--red); }
-  input[type=text], input[type=number], select, textarea { width: 100%; background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: 10px; padding: 9px 13px; font-family: 'DM Sans', sans-serif; font-size: 14px; color: var(--gray-900); outline: none; transition: border .15s; }
-  input:focus, select:focus, textarea:focus { border-color: var(--green); box-shadow: 0 0 0 3px rgba(34,197,94,.1); }
-  textarea { min-height: 70px; resize: vertical; }
-  .prefix-wrap { position: relative; }
-  .prefix { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--gray-400); }
-  .prefix-wrap input { padding-left: 20px; }
+  .fg{margin-bottom:12px;}
+  .fl{font-size:12px;font-weight:600;color:var(--gray-600);margin-bottom:5px;display:block;}
+  .req{color:var(--red);}
+  input[type=text],input[type=number],input[type=date],input[type=time],select,textarea{width:100%;background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:10px;padding:9px 13px;font-family:'DM Sans',sans-serif;font-size:14px;color:var(--gray-900);outline:none;transition:border .15s;}
+  input:focus,select:focus,textarea:focus{border-color:var(--green);box-shadow:0 0 0 3px rgba(34,197,94,.1);}
+  textarea{min-height:70px;resize:vertical;}
+  .pw{position:relative;}
+  .pp{position:absolute;left:11px;top:50%;transform:translateY(-50%);font-size:13px;color:var(--gray-400);}
+  .pw input{padding-left:20px;}
 
-  /* SEARCH */
-  .search-wrap { position: relative; }
-  .search-icon { position: absolute; left: 11px; top: 50%; transform: translateY(-50%); color: var(--gray-400); font-size: 13px; pointer-events: none; }
-  .search-wrap input { padding-left: 32px; }
-  .search-results { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 10px; box-shadow: 0 8px 24px rgba(0,0,0,.1); z-index: 50; max-height: 180px; overflow-y: auto; display: none; }
-  .search-results.open { display: block; }
-  .s-item { padding: 9px 13px; cursor: pointer; border-bottom: 1px solid var(--gray-100); transition: background .1s; }
-  .s-item:last-child { border-bottom: none; }
-  .s-item:hover { background: var(--green-light); }
-  .s-name { font-weight: 600; font-size: 13px; }
-  .s-sub { font-size: 11px; color: var(--gray-400); margin-top: 1px; }
-  .sel-box { background: var(--green-light); border: 1.5px solid var(--green); border-radius: 10px; padding: 9px 13px; display: none; align-items: center; justify-content: space-between; }
-  .sel-box.show { display: flex; }
-  .sel-name { font-weight: 600; font-size: 13px; color: var(--green-dark); }
-  .sel-sub { font-size: 11px; color: var(--green-dark); opacity: .7; margin-top: 1px; }
-  .clear-btn { background: none; border: none; cursor: pointer; color: var(--green-dark); font-size: 15px; font-weight: 700; padding: 0 4px; }
+  .sw{position:relative;}
+  .si{position:absolute;left:11px;top:50%;transform:translateY(-50%);color:var(--gray-400);font-size:13px;pointer-events:none;}
+  .sw input{padding-left:32px;}
+  .sr{position:absolute;top:calc(100% + 4px);left:0;right:0;background:var(--white);border:1.5px solid var(--gray-200);border-radius:10px;box-shadow:0 8px 24px rgba(0,0,0,.1);z-index:50;max-height:180px;overflow-y:auto;display:none;}
+  .sr.open{display:block;}
+  .si2{padding:9px 13px;cursor:pointer;border-bottom:1px solid var(--gray-100);transition:background .1s;}
+  .si2:last-child{border-bottom:none;}
+  .si2:hover{background:var(--green-light);}
+  .sn{font-weight:600;font-size:13px;}
+  .ss{font-size:11px;color:var(--gray-400);margin-top:1px;}
+  .sb{background:var(--green-light);border:1.5px solid var(--green);border-radius:10px;padding:9px 13px;display:none;align-items:center;justify-content:space-between;}
+  .sb.show{display:flex;}
+  .sbn{font-weight:600;font-size:13px;color:var(--green-dark);}
+  .sbs{font-size:11px;color:var(--green-dark);opacity:.7;margin-top:1px;}
+  .cb{background:none;border:none;cursor:pointer;color:var(--green-dark);font-size:15px;font-weight:700;padding:0 4px;}
 
-  /* CALENDAR */
-  .date-time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
-  @media(max-width:480px) { .date-time-grid { grid-template-columns: 1fr; } }
-  .cal-box { background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: 12px; padding: 12px; }
-  .cal-hdr { display: flex; align-items: center; justify-content: space-between; margin-bottom: 8px; }
-  .cal-month { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; }
-  .cal-nav { background: none; border: none; cursor: pointer; font-size: 16px; color: var(--gray-600); padding: 0 4px; border-radius: 5px; }
-  .cal-nav:hover { background: var(--gray-200); }
-  .cal-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 2px; }
-  .cal-dh { font-size: 9px; color: var(--gray-400); text-align: center; padding: 2px 0; text-transform: uppercase; }
-  .cal-d { font-size: 11px; text-align: center; padding: 5px 2px; border-radius: 5px; cursor: pointer; color: var(--gray-900); transition: all .1s; }
-  .cal-d:hover:not(.past):not(.empty) { background: var(--green-light); color: var(--green-dark); }
-  .cal-d.selected { background: var(--green); color: white; font-weight: 700; }
-  .cal-d.today { font-weight: 700; color: var(--green-dark); }
-  .cal-d.past, .cal-d.empty { color: var(--gray-300); pointer-events: none; }
-  .cal-sel { font-size: 11px; color: var(--green-dark); text-align: center; margin-top: 6px; min-height: 14px; font-weight: 600; }
+  .dtg{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  @media(max-width:480px){.dtg{grid-template-columns:1fr;}}
+  .calbox{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:12px;padding:12px;}
+  .calhdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px;}
+  .calmon{font-family:'Syne',sans-serif;font-weight:700;font-size:13px;}
+  .calnav{background:none;border:none;cursor:pointer;font-size:16px;color:var(--gray-600);padding:0 4px;border-radius:5px;}
+  .calnav:hover{background:var(--gray-200);}
+  .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:2px;}
+  .caldh{font-size:9px;color:var(--gray-400);text-align:center;padding:2px 0;text-transform:uppercase;}
+  .cald{font-size:11px;text-align:center;padding:5px 2px;border-radius:5px;cursor:pointer;color:var(--gray-900);transition:all .1s;}
+  .cald:hover:not(.past):not(.empty){background:var(--green-light);color:var(--green-dark);}
+  .cald.selected{background:var(--green);color:white;font-weight:700;}
+  .cald.today{font-weight:700;color:var(--green-dark);}
+  .cald.past,.cald.empty{color:var(--gray-300);pointer-events:none;}
+  .calsel{font-size:11px;color:var(--green-dark);text-align:center;margin-top:6px;min-height:14px;font-weight:600;}
 
-  /* TIME */
-  .time-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4px; }
-  .time-btn { background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: 7px; padding: 6px 4px; font-size: 11px; color: var(--gray-900); cursor: pointer; text-align: center; transition: all .1s; }
-  .time-btn:hover { border-color: var(--green); color: var(--green-dark); }
-  .time-btn.sel { background: var(--green); border-color: var(--green); color: white; font-weight: 700; }
+  .tgrid{display:grid;grid-template-columns:1fr 1fr;gap:4px;}
+  .tbtn{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:7px;padding:6px 4px;font-size:11px;color:var(--gray-900);cursor:pointer;text-align:center;transition:all .1s;}
+  .tbtn:hover{border-color:var(--green);color:var(--green-dark);}
+  .tbtn.sel{background:var(--green);border-color:var(--green);color:white;font-weight:700;}
 
-  /* CHIPS */
-  .btn-group { display: flex; gap: 6px; flex-wrap: wrap; }
-  .chip { background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: 7px; padding: 7px 11px; font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 600; color: var(--gray-600); cursor: pointer; transition: all .12s; }
-  .chip:hover { border-color: var(--green); color: var(--green-dark); }
-  .chip.sel { background: var(--green); border-color: var(--green); color: white; }
+  .bg{display:flex;gap:6px;flex-wrap:wrap;}
+  .chip{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:7px;padding:7px 11px;font-family:'DM Sans',sans-serif;font-size:12px;font-weight:600;color:var(--gray-600);cursor:pointer;transition:all .12s;}
+  .chip:hover{border-color:var(--green);color:var(--green-dark);}
+  .chip.sel{background:var(--green);border-color:var(--green);color:white;}
 
-  /* AUTOMATIONS */
-  .auto-row { background: var(--gray-50); border: 1.5px solid var(--gray-200); border-radius: 11px; padding: 12px 14px; display: flex; align-items: center; gap: 12px; margin-bottom: 8px; transition: all .15s; }
-  .auto-row.on { border-color: var(--green); background: var(--green-light); }
-  .auto-icon { width: 32px; height: 32px; border-radius: 8px; background: var(--white); border: 1px solid var(--gray-200); display: flex; align-items: center; justify-content: center; font-size: 14px; flex-shrink: 0; }
-  .auto-text { flex: 1; }
-  .auto-title { font-size: 13px; font-weight: 600; }
-  .auto-sub { font-size: 11px; color: var(--gray-400); margin-top: 2px; }
-  .auto-row.on .auto-sub { color: var(--green-dark); }
-  .tog-grp { display: flex; gap: 5px; }
-  .tog { background: var(--white); border: 1.5px solid var(--gray-200); border-radius: 6px; padding: 4px 10px; font-size: 12px; font-weight: 700; cursor: pointer; color: var(--gray-600); transition: all .12s; }
-  .tog.yes.sel { background: var(--green); border-color: var(--green); color: white; }
-  .tog.no.sel { background: var(--gray-200); border-color: var(--gray-300); color: var(--gray-700); }
+  .dur-custom{display:flex;align-items:center;gap:8px;margin-top:10px;}
+  .dur-custom input{max-width:80px;}
+  .dur-custom span{font-size:13px;color:var(--gray-600);}
 
-  /* FOOTER */
-  .form-footer { padding: 18px 24px; background: var(--gray-50); border-top: 1px solid var(--gray-200); }
-  .error-msg { background: var(--red-light); border: 1px solid #fca5a5; border-radius: 8px; padding: 9px 13px; font-size: 13px; color: #b91c1c; margin-bottom: 10px; display: none; }
-  .error-msg.show { display: block; }
-  .success-msg { background: var(--green-light); border: 1px solid var(--green-mid); border-radius: 8px; padding: 9px 13px; font-size: 13px; color: var(--green-dark); font-weight: 600; margin-bottom: 10px; display: none; }
-  .success-msg.show { display: block; }
-  .btn-submit { width: 100%; background: var(--green); color: white; border: none; border-radius: 10px; padding: 13px; font-family: 'Syne', sans-serif; font-size: 14px; font-weight: 700; cursor: pointer; transition: background .15s; display: flex; align-items: center; justify-content: center; gap: 8px; }
-  .btn-submit:hover { background: var(--green-dark); }
-  .btn-submit:disabled { background: var(--gray-300); cursor: not-allowed; }
-  .spinner { width: 15px; height: 15px; border: 2px solid rgba(255,255,255,.4); border-top-color: white; border-radius: 50%; animation: spin .6s linear infinite; display: none; }
-  .btn-submit.loading .spinner { display: block; }
-  @keyframes spin { to { transform: rotate(360deg); } }
+  .ar{background:var(--gray-50);border:1.5px solid var(--gray-200);border-radius:11px;padding:12px 14px;display:flex;align-items:center;gap:12px;margin-bottom:8px;transition:all .15s;}
+  .ar.on{border-color:var(--green);background:var(--green-light);}
+  .ai{width:32px;height:32px;border-radius:8px;background:var(--white);border:1px solid var(--gray-200);display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0;}
+  .at{flex:1;}
+  .at-title{font-size:13px;font-weight:600;}
+  .at-sub{font-size:11px;color:var(--gray-400);margin-top:2px;}
+  .ar.on .at-sub{color:var(--green-dark);}
+  .tg{display:flex;gap:5px;}
+  .tog{background:var(--white);border:1.5px solid var(--gray-200);border-radius:6px;padding:4px 10px;font-size:12px;font-weight:700;cursor:pointer;color:var(--gray-600);transition:all .12s;}
+  .tog.yes.sel{background:var(--green);border-color:var(--green);color:white;}
+  .tog.no.sel{background:var(--gray-200);border-color:var(--gray-300);color:var(--gray-700);}
 
-  /* APPOINTMENTS LIST */
-  .appt-list { padding: 16px 24px; }
-  .appt-search-bar { display: flex; gap: 8px; margin-bottom: 16px; }
-  .appt-search-bar input { flex: 1; }
-  .btn-refresh { background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 8px; padding: 8px 14px; font-size: 12px; font-weight: 600; cursor: pointer; color: var(--gray-600); white-space: nowrap; }
-  .btn-refresh:hover { background: var(--gray-200); }
-  .loading-state { text-align: center; padding: 32px; color: var(--gray-400); font-size: 13px; }
-  .appt-card { background: var(--gray-50); border: 1px solid var(--gray-200); border-radius: 12px; padding: 14px 16px; margin-bottom: 10px; }
-  .appt-card-top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 8px; }
-  .appt-title-text { font-weight: 700; font-size: 14px; color: var(--gray-900); }
-  .appt-contact { font-size: 12px; color: var(--gray-400); margin-top: 2px; }
-  .appt-actions { display: flex; gap: 6px; flex-shrink: 0; }
-  .btn-edit { background: var(--white); border: 1px solid var(--gray-200); border-radius: 7px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; color: var(--gray-600); transition: all .12s; }
-  .btn-edit:hover { border-color: var(--green); color: var(--green-dark); }
-  .btn-delete { background: var(--white); border: 1px solid var(--gray-200); border-radius: 7px; padding: 5px 10px; font-size: 11px; font-weight: 700; cursor: pointer; color: var(--red); transition: all .12s; }
-  .btn-delete:hover { background: var(--red-light); border-color: var(--red); }
-  .appt-meta { display: flex; gap: 10px; flex-wrap: wrap; }
-  .appt-badge { font-size: 11px; font-weight: 600; padding: 3px 8px; border-radius: 5px; }
-  .badge-date { background: #e0f2fe; color: #0369a1; }
-  .badge-freq { background: var(--green-light); color: var(--green-dark); }
-  .badge-value { background: #fef3c7; color: #92400e; }
-  .badge-status-confirmed { background: var(--green-light); color: var(--green-dark); }
-  .badge-status-pending { background: #fef3c7; color: #92400e; }
-  .badge-status-cancelled { background: var(--red-light); color: #b91c1c; }
-  .recurring-group { margin-bottom: 16px; }
-  .recurring-group-header { display: flex; align-items: center; justify-content: space-between; background: var(--green-light); border: 1px solid var(--green-mid); border-radius: 10px; padding: 10px 14px; margin-bottom: 8px; }
-  .recurring-group-title { font-weight: 700; font-size: 13px; color: var(--green-dark); }
-  .recurring-group-sub { font-size: 11px; color: var(--green-dark); opacity: .8; margin-top: 2px; }
-  .btn-delete-series { background: var(--red-light); border: 1px solid #fca5a5; border-radius: 7px; padding: 6px 12px; font-size: 11px; font-weight: 700; cursor: pointer; color: #b91c1c; transition: all .12s; }
-  .btn-delete-series:hover { background: var(--red); color: white; }
-  .empty-state { text-align: center; padding: 40px 20px; color: var(--gray-400); }
-  .empty-state-icon { font-size: 32px; margin-bottom: 10px; }
-  .empty-state-title { font-weight: 700; font-size: 15px; color: var(--gray-600); margin-bottom: 4px; }
+  .ff{padding:18px 24px;background:var(--gray-50);border-top:1px solid var(--gray-200);}
+  .em{background:var(--red-light);border:1px solid #fca5a5;border-radius:8px;padding:9px 13px;font-size:13px;color:#b91c1c;margin-bottom:10px;display:none;}
+  .em.show{display:block;}
+  .sm{background:var(--green-light);border:1px solid var(--green-mid);border-radius:8px;padding:9px 13px;font-size:13px;color:var(--green-dark);font-weight:600;margin-bottom:10px;display:none;}
+  .sm.show{display:block;}
+  .bsub{width:100%;background:var(--green);color:white;border:none;border-radius:10px;padding:13px;font-family:'Syne',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s;display:flex;align-items:center;justify-content:center;gap:8px;}
+  .bsub:hover{background:var(--green-dark);}
+  .bsub:disabled{background:var(--gray-300);cursor:not-allowed;}
+  .spinner{width:15px;height:15px;border:2px solid rgba(255,255,255,.4);border-top-color:white;border-radius:50%;animation:spin .6s linear infinite;display:none;}
+  .bsub.loading .spinner{display:block;}
+  @keyframes spin{to{transform:rotate(360deg);}}
 
-  /* MODAL */
-  .modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; display: none; align-items: center; justify-content: center; padding: 16px; }
-  .modal-overlay.open { display: flex; }
-  .modal { background: var(--white); border-radius: 16px; width: 100%; max-width: 480px; max-height: 90vh; overflow-y: auto; animation: slideUp .2s ease; }
-  @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
-  .modal-header { padding: 18px 20px; border-bottom: 1px solid var(--gray-100); display: flex; align-items: center; justify-content: space-between; }
-  .modal-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 16px; }
-  .modal-close { background: none; border: none; cursor: pointer; font-size: 20px; color: var(--gray-400); }
-  .modal-body { padding: 18px 20px; }
-  .modal-footer { padding: 14px 20px; border-top: 1px solid var(--gray-100); display: flex; gap: 8px; }
-  .btn-cancel-modal { flex: 1; background: var(--gray-100); border: 1px solid var(--gray-200); border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 600; cursor: pointer; color: var(--gray-600); }
-  .btn-save-modal { flex: 2; background: var(--green); border: none; border-radius: 8px; padding: 10px; font-size: 13px; font-weight: 700; cursor: pointer; color: white; }
-  .btn-save-modal:hover { background: var(--green-dark); }
+  /* CUSTOMER LIST */
+  .clist{padding:16px 24px;}
+  .csearch-bar{display:flex;gap:8px;margin-bottom:16px;}
+  .csearch-bar input{flex:1;}
+  .btn-sm{background:var(--gray-100);border:1px solid var(--gray-200);border-radius:8px;padding:8px 14px;font-size:12px;font-weight:600;cursor:pointer;color:var(--gray-600);white-space:nowrap;transition:all .12s;}
+  .btn-sm:hover{background:var(--gray-200);}
+  .btn-sm.red{background:var(--red-light);color:#b91c1c;border-color:#fca5a5;}
+  .btn-sm.red:hover{background:var(--red);color:white;}
+  .btn-sm.green{background:var(--green-light);color:var(--green-dark);border-color:var(--green-mid);}
+  .btn-sm.green:hover{background:var(--green);color:white;}
+  .btn-sm.blue{background:#eff6ff;color:#1d4ed8;border-color:#bfdbfe;}
+  .btn-sm.blue:hover{background:var(--blue);color:white;}
 
-  .tab-content { display: none; }
-  .tab-content.active { display: block; }
+  .cust-card{background:var(--gray-50);border:1px solid var(--gray-200);border-radius:14px;margin-bottom:12px;overflow:hidden;}
+  .cust-header{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer;transition:background .1s;}
+  .cust-header:hover{background:var(--gray-100);}
+  .cust-avatar{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:14px;color:white;flex-shrink:0;margin-right:12px;}
+  .cust-info{flex:1;}
+  .cust-name{font-weight:700;font-size:14px;color:var(--gray-900);}
+  .cust-meta{font-size:11px;color:var(--gray-400);margin-top:2px;}
+  .cust-chevron{font-size:14px;color:var(--gray-400);transition:transform .2s;}
+  .cust-header.open .cust-chevron{transform:rotate(180deg);}
+  .cust-actions{display:flex;gap:6px;padding:0 16px 14px;flex-wrap:wrap;}
+  .cust-appts{border-top:1px solid var(--gray-200);display:none;}
+  .cust-appts.open{display:block;}
+  .appt-row{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid var(--gray-100);}
+  .appt-row:last-child{border-bottom:none;}
+  .appt-row-left{display:flex;align-items:center;gap:10px;}
+  .appt-row-date{font-size:13px;font-weight:600;color:var(--gray-900);}
+  .appt-row-time{font-size:11px;color:var(--gray-400);margin-top:1px;}
+  .appt-row-actions{display:flex;gap:5px;}
+  .abadge{font-size:10px;font-weight:700;padding:2px 7px;border-radius:5px;}
+  .ab-confirmed{background:var(--green-light);color:var(--green-dark);}
+  .ab-pending{background:#fef3c7;color:#92400e;}
+  .ab-cancelled{background:var(--red-light);color:#b91c1c;}
+  .loading-state{text-align:center;padding:32px;color:var(--gray-400);font-size:13px;}
+  .empty-state{text-align:center;padding:40px 20px;color:var(--gray-400);}
+  .es-icon{font-size:32px;margin-bottom:10px;}
+  .es-title{font-weight:700;font-size:15px;color:var(--gray-600);margin-bottom:4px;}
+
+  /* RECURRING */
+  .rec-group{margin-bottom:16px;background:var(--gray-50);border:1px solid var(--gray-200);border-radius:14px;overflow:hidden;}
+  .rec-hdr{display:flex;align-items:center;justify-content:space-between;padding:14px 16px;background:var(--green-light);border-bottom:1px solid var(--green-mid);}
+  .rec-title{font-weight:700;font-size:14px;color:var(--green-dark);}
+  .rec-sub{font-size:11px;color:var(--green-dark);opacity:.8;margin-top:2px;}
+  .rec-actions{display:flex;gap:6px;}
+
+  /* MODALS */
+  .mo{position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;display:none;align-items:center;justify-content:center;padding:16px;}
+  .mo.open{display:flex;}
+  .md{background:var(--white);border-radius:16px;width:100%;max-width:460px;max-height:90vh;overflow-y:auto;animation:slideUp .2s ease;}
+  @keyframes slideUp{from{transform:translateY(20px);opacity:0;}to{transform:translateY(0);opacity:1;}}
+  .mh{padding:16px 20px;border-bottom:1px solid var(--gray-100);display:flex;align-items:center;justify-content:space-between;}
+  .mt{font-family:'Syne',sans-serif;font-weight:800;font-size:16px;}
+  .mc{background:none;border:none;cursor:pointer;font-size:20px;color:var(--gray-400);}
+  .mb{padding:16px 20px;}
+  .mf{padding:14px 20px;border-top:1px solid var(--gray-100);display:flex;gap:8px;}
+  .btn-cancel-m{flex:1;background:var(--gray-100);border:1px solid var(--gray-200);border-radius:8px;padding:10px;font-size:13px;font-weight:600;cursor:pointer;color:var(--gray-600);}
+  .btn-save-m{flex:2;background:var(--green);border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;color:white;}
+  .btn-save-m:hover{background:var(--green-dark);}
+  .btn-danger-m{flex:2;background:var(--red);border:none;border-radius:8px;padding:10px;font-size:13px;font-weight:700;cursor:pointer;color:white;}
+
+  .tab-content{display:none;}
+  .tab-content.active{display:block;}
+
+  .modal-tabs{display:flex;gap:4px;margin-bottom:16px;}
+  .modal-tab{flex:1;padding:8px;border:1.5px solid var(--gray-200);border-radius:8px;background:var(--gray-50);font-size:12px;font-weight:600;cursor:pointer;color:var(--gray-600);transition:all .12s;text-align:center;}
+  .modal-tab.active{background:var(--green);border-color:var(--green);color:white;}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
 </style>
 </head>
 <body>
-
 <script>
-  const CONFIG = {
-    GHL_API_KEY: 'pit-b37dad50-9fb2-427e-9f50-daa59787f414',
-    GHL_LOCATION_ID: 'iPB4mkp2CJHnxCVoyVHk',
-    GHL_CALENDAR_ID: 'vxbDPpNJQr2AtleAU5UP',
-    WORKFLOW_UPSELL_ID: 'YOUR_UPSELL_WORKFLOW_ID',
-    WORKFLOW_REVIEW_ID: 'YOUR_REVIEW_WORKFLOW_ID',
-    SHEETS_WEBHOOK_URL: '',
-    GHL_BOOKINGS_OBJECT_ID: '69d933514bff205407e8ef7a',
-  };
-  const GHL_HEADERS = { 'Authorization': `Bearer ${CONFIG.GHL_API_KEY}`, 'Version': '2021-07-28', 'Content-Type': 'application/json' };
+const CONFIG={
+  GHL_API_KEY:'pit-b37dad50-9fb2-427e-9f50-daa59787f414',
+  GHL_LOCATION_ID:'iPB4mkp2CJHnxCVoyVHk',
+  GHL_CALENDAR_ID:'vxbDPpNJQr2AtleAU5UP',
+  GHL_BOOKINGS_OBJECT_ID:'69d933514bff205407e8ef7a',
+  WORKFLOW_UPSELL_ID:'',
+  WORKFLOW_REVIEW_ID:'',
+};
+const GHL_H={'Authorization':`Bearer ${CONFIG.GHL_API_KEY}`,'Version':'2021-07-28','Content-Type':'application/json'};
 </script>
 
 <div class="topbar">
@@ -196,330 +207,369 @@
   <div class="sub-acct">Happy Helpers USA</div>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
   <button class="tab active" onclick="switchTab('book')">📅 Book</button>
-  <button class="tab" onclick="switchTab('upcoming')">📋 Upcoming</button>
+  <button class="tab" onclick="switchTab('customers')">👥 Customers</button>
   <button class="tab" onclick="switchTab('recurring')">🔄 Recurring</button>
 </div>
 
-<!-- ══ TAB: BOOK ══ -->
+<!-- ══ BOOK ══ -->
 <div id="tab-book" class="tab-content active">
 <div class="card">
-  <div class="card-header">
-    <div class="card-header-title">New Appointment</div>
-    <div class="card-header-sub">Schedule a cleaning and configure follow-up automations</div>
-  </div>
+  <div class="card-header"><div class="card-header-title">New Appointment</div><div class="card-header-sub">Schedule a cleaning and configure follow-up automations</div></div>
 
-  <!-- 1. CUSTOMER -->
   <div class="section">
-    <div class="section-hdr"><div class="step-dot">1</div><div><div class="sec-title">Customer</div><div class="sec-sub">Select the contact for this appointment</div></div></div>
-    <div class="form-group">
-      <label class="form-label">Customer <span class="req">*</span></label>
-      <div class="search-wrap" id="searchWrap">
-        <span class="search-icon">🔍</span>
+    <div class="sec-hdr"><div class="step-dot">1</div><div><div class="sec-title">Customer</div><div class="sec-sub">Select the contact for this appointment</div></div></div>
+    <div class="fg">
+      <label class="fl">Customer <span class="req">*</span></label>
+      <div class="sw" id="searchWrap">
+        <span class="si">🔍</span>
         <input type="text" id="customerSearch" placeholder="Search by name, phone, or email..." autocomplete="off">
-        <div class="search-results" id="searchResults"></div>
+        <div class="sr" id="searchResults"></div>
       </div>
-      <div class="sel-box" id="selectedCustomer">
-        <div><div class="sel-name" id="selName"></div><div class="sel-sub" id="selSub"></div></div>
-        <button class="clear-btn" id="clearBtn">✕</button>
-      </div>
+      <div class="sb" id="selectedCustomer"><div><div class="sbn" id="selName"></div><div class="sbs" id="selSub"></div></div><button class="cb" id="clearBtn">✕</button></div>
     </div>
-    <div class="form-group">
-      <label class="form-label">Appointment Title <span class="req">*</span></label>
-      <input type="text" id="apptTitle" placeholder="e.g. Deep Clean — Kitchen & Bathrooms">
-    </div>
-    <div class="form-group">
-      <label class="form-label">Estimate</label>
-      <div class="prefix-wrap"><span class="prefix">$</span><input type="number" id="jobValue" placeholder="0.00" min="0" step="0.01"></div>
-    </div>
-    <div class="form-group">
-      <label class="form-label">Service Type</label>
-      <select id="serviceType"><option value="">Select...</option><option>Standard Clean</option><option>Deep Clean</option><option>Move-In/Out</option><option>Post-Construction</option><option>Other</option></select>
-    </div>
+    <div class="fg"><label class="fl">Appointment Title <span class="req">*</span></label><input type="text" id="apptTitle" placeholder="e.g. Deep Clean — Kitchen & Bathrooms"></div>
+    <div class="fg"><label class="fl">Estimate</label><div class="pw"><span class="pp">$</span><input type="number" id="jobValue" placeholder="0.00" min="0" step="0.01"></div></div>
+    <div class="fg"><label class="fl">Service Type</label><select id="serviceType"><option value="">Select...</option><option>Standard Clean</option><option>Deep Clean</option><option>Move-In/Out</option><option>Post-Construction</option><option>Other</option></select></div>
   </div>
 
-  <!-- 2. DATE & TIME -->
   <div class="section">
-    <div class="section-hdr"><div class="step-dot">2</div><div><div class="sec-title">Date & Time</div><div class="sec-sub">Pick the appointment date and arrival window</div></div></div>
-    <div class="date-time-grid">
+    <div class="sec-hdr"><div class="step-dot">2</div><div><div class="sec-title">Date & Time</div><div class="sec-sub">Pick the appointment date and arrival window</div></div></div>
+    <div class="dtg">
       <div>
-        <label class="form-label">Date <span class="req">*</span></label>
-        <div class="cal-box">
-          <div class="cal-hdr">
-            <button class="cal-nav" id="calPrev">‹</button>
-            <div class="cal-month" id="calMonth"></div>
-            <button class="cal-nav" id="calNext">›</button>
-          </div>
-          <div class="cal-grid" id="calGrid"></div>
-          <div class="cal-sel" id="calSel">No date selected</div>
+        <label class="fl">Date <span class="req">*</span></label>
+        <div class="calbox">
+          <div class="calhdr"><button class="calnav" id="calPrev">‹</button><div class="calmon" id="calMonth"></div><button class="calnav" id="calNext">›</button></div>
+          <div class="calgrid" id="calGrid"></div>
+          <div class="calsel" id="calSel">No date selected</div>
         </div>
       </div>
       <div>
-        <label class="form-label">Arrival Time <span class="req">*</span></label>
-        <div class="time-grid" id="timeGrid"></div>
+        <label class="fl">Arrival Time <span class="req">*</span></label>
+        <div class="tgrid" id="timeGrid"></div>
       </div>
     </div>
-    <div class="form-group" style="margin-top:12px">
-      <label class="form-label">Est. Duration</label>
-      <div class="btn-group" id="durGroup">
-        <button class="chip" data-val="1h">1h</button><button class="chip" data-val="1.5h">1.5h</button><button class="chip sel" data-val="2h">2h</button><button class="chip" data-val="3h">3h</button><button class="chip" data-val="4h">4h</button>
+    <div class="fg" style="margin-top:12px">
+      <label class="fl">Duration</label>
+      <div class="bg" id="durGroup">
+        <button class="chip" data-val="1">1h</button>
+        <button class="chip" data-val="1.5">1.5h</button>
+        <button class="chip sel" data-val="2">2h</button>
+        <button class="chip" data-val="3">3h</button>
+        <button class="chip" data-val="4">4h</button>
+        <button class="chip" data-val="custom">Custom</button>
+      </div>
+      <div class="dur-custom" id="customDurWrap" style="display:none;">
+        <input type="number" id="customDur" min="0.5" max="24" step="0.5" value="2.5" style="max-width:80px;">
+        <span>hours</span>
       </div>
     </div>
   </div>
 
-  <!-- 3. FREQUENCY -->
   <div class="section">
-    <div class="section-hdr"><div class="step-dot">3</div><div><div class="sec-title">Recurring Schedule</div><div class="sec-sub">How often should this repeat?</div></div></div>
-    <label class="form-label">Frequency <span class="req">*</span></label>
-    <div class="btn-group" id="freqGroup">
+    <div class="sec-hdr"><div class="step-dot">3</div><div><div class="sec-title">Recurring Schedule</div><div class="sec-sub">How often should this repeat?</div></div></div>
+    <label class="fl">Frequency <span class="req">*</span></label>
+    <div class="bg" id="freqGroup">
       <button class="chip sel" data-val="One Time">One Time</button>
       <button class="chip" data-val="Weekly">Weekly</button>
       <button class="chip" data-val="Bi-Weekly">Bi-Weekly</button>
       <button class="chip" data-val="Every 3 Wks">Every 3 Wks</button>
       <button class="chip" data-val="Every 4 Wks">Every 4 Wks</button>
     </div>
-    <div id="repeatWrap" style="display:none; margin-top:14px;">
-      <label class="form-label">How many cleanings to book? <span class="req">*</span></label>
-      <div style="display:flex; align-items:center; gap:12px; margin-top:5px;">
+    <div id="repeatWrap" style="display:none;margin-top:14px;">
+      <label class="fl">How many cleanings to book? <span class="req">*</span></label>
+      <div style="display:flex;align-items:center;gap:12px;margin-top:5px;">
         <input type="number" id="repeatCount" min="2" max="52" value="4" style="max-width:85px;">
-        <span id="repeatSummary" style="font-size:12px; color:var(--gray-600);"></span>
+        <span id="repeatSummary" style="font-size:12px;color:var(--gray-600);"></span>
       </div>
     </div>
   </div>
 
-  <!-- 4. NOTES -->
   <div class="section">
-    <div class="section-hdr"><div class="step-dot">4</div><div><div class="sec-title">Notes</div><div class="sec-sub">Internal notes or special instructions</div></div></div>
-    <label class="form-label">Job Notes</label>
+    <div class="sec-hdr"><div class="step-dot">4</div><div><div class="sec-title">Notes</div><div class="sec-sub">Internal notes or special instructions</div></div></div>
+    <label class="fl">Job Notes</label>
     <textarea id="jobNotes" placeholder="e.g. Client has a dog — keep front door closed. Key under mat." maxlength="300"></textarea>
     <div style="font-size:11px;color:var(--gray-400);text-align:right;margin-top:3px"><span id="noteCount">0</span>/300</div>
   </div>
 
-  <!-- 5. AUTOMATIONS -->
   <div class="section">
-    <div class="section-hdr"><div class="step-dot">5</div><div><div class="sec-title">Post-Cleaning Automations</div><div class="sec-sub">Configure follow-ups after the job completes</div></div></div>
-    <div class="auto-row" id="upsellRow">
-      <div class="auto-icon">📈</div>
-      <div class="auto-text"><div class="auto-title">Send Recurring Upsell</div><div class="auto-sub">Promote upgrade packages after this cleaning</div></div>
-      <div class="tog-grp">
-        <button class="tog yes" data-target="upsell" data-val="Yes">Yes</button>
-        <button class="tog no sel" data-target="upsell" data-val="No">No</button>
-      </div>
+    <div class="sec-hdr"><div class="step-dot">5</div><div><div class="sec-title">Post-Cleaning Automations</div><div class="sec-sub">Configure follow-ups after the job</div></div></div>
+    <div class="ar" id="upsellRow">
+      <div class="ai">📈</div>
+      <div class="at"><div class="at-title">Send Recurring Upsell</div><div class="at-sub">Promote upgrade packages after this cleaning</div></div>
+      <div class="tg"><button class="tog yes" data-target="upsell" data-val="Yes">Yes</button><button class="tog no sel" data-target="upsell" data-val="No">No</button></div>
     </div>
-    <div class="auto-row" id="reviewRow">
-      <div class="auto-icon">⭐</div>
-      <div class="auto-text"><div class="auto-title">Request Review After Cleaning</div><div class="auto-sub">Send Google/Yelp review request 2 hrs post-completion</div></div>
-      <div class="tog-grp">
-        <button class="tog yes" data-target="review" data-val="Yes">Yes</button>
-        <button class="tog no sel" data-target="review" data-val="No">No</button>
-      </div>
+    <div class="ar" id="reviewRow">
+      <div class="ai">⭐</div>
+      <div class="at"><div class="at-title">Request Review After Cleaning</div><div class="at-sub">Send Google/Yelp review request 2 hrs post-completion</div></div>
+      <div class="tg"><button class="tog yes" data-target="review" data-val="Yes">Yes</button><button class="tog no sel" data-target="review" data-val="No">No</button></div>
     </div>
   </div>
 
-  <div class="form-footer">
-    <div class="error-msg" id="errorMsg"></div>
-    <div class="success-msg" id="successMsg"></div>
-    <button class="btn-submit" id="submitBtn"><div class="spinner"></div><span id="submitTxt">📅 Book Appointment</span></button>
+  <div class="ff">
+    <div class="em" id="errorMsg"></div>
+    <div class="sm" id="successMsg"></div>
+    <button class="bsub" id="submitBtn"><div class="spinner"></div><span id="submitTxt">📅 Book Appointment</span></button>
   </div>
 </div>
 </div>
 
-<!-- ══ TAB: UPCOMING ══ -->
-<div id="tab-upcoming" class="tab-content">
+<!-- ══ CUSTOMERS ══ -->
+<div id="tab-customers" class="tab-content">
 <div class="card">
-  <div class="card-header">
-    <div class="card-header-title">Upcoming Appointments</div>
-    <div class="card-header-sub">View, edit, or cancel scheduled appointments</div>
-  </div>
-  <div class="appt-list">
-    <div class="appt-search-bar">
-      <input type="text" id="upcomingSearch" placeholder="Filter by name or title..." oninput="filterUpcoming(this.value)">
-      <button class="btn-refresh" onclick="loadUpcoming()">↻ Refresh</button>
+  <div class="card-header"><div class="card-header-title">Customers</div><div class="card-header-sub">Manage appointments per client — edit, reschedule, or cancel</div></div>
+  <div class="clist">
+    <div class="csearch-bar">
+      <div class="sw" style="flex:1"><span class="si">🔍</span><input type="text" id="custSearch" placeholder="Search customers..." oninput="filterCustomers(this.value)" style="padding-left:32px;"></div>
+      <button class="btn-sm" onclick="loadCustomers()">↻ Refresh</button>
     </div>
-    <div id="upcomingList"><div class="loading-state">Loading appointments...</div></div>
+    <div id="customerList"><div class="loading-state">Loading customers...</div></div>
   </div>
 </div>
 </div>
 
-<!-- ══ TAB: RECURRING ══ -->
+<!-- ══ RECURRING ══ -->
 <div id="tab-recurring" class="tab-content">
 <div class="card">
-  <div class="card-header">
-    <div class="card-header-title">Recurring Series</div>
-    <div class="card-header-sub">Manage recurring cleaning schedules — edit or cancel entire series</div>
-  </div>
-  <div class="appt-list">
-    <div style="display:flex; gap:8px; margin-bottom:16px;">
-      <input type="text" id="recurringSearch" placeholder="Filter by contact name..." oninput="filterRecurring(this.value)">
-      <button class="btn-refresh" onclick="loadRecurring()">↻ Refresh</button>
+  <div class="card-header"><div class="card-header-title">Recurring Series</div><div class="card-header-sub">Manage recurring schedules — reschedule or cancel entire series</div></div>
+  <div class="clist">
+    <div class="csearch-bar">
+      <div class="sw" style="flex:1"><span class="si">🔍</span><input type="text" id="recSearch" placeholder="Search by customer..." oninput="filterRecurring(this.value)" style="padding-left:32px;"></div>
+      <button class="btn-sm" onclick="loadRecurring()">↻ Refresh</button>
     </div>
-    <div id="recurringList"><div class="loading-state">Loading recurring series...</div></div>
+    <div id="recurringList"><div class="loading-state">Loading...</div></div>
   </div>
 </div>
 </div>
 
-<!-- EDIT MODAL -->
-<div class="modal-overlay" id="editModal">
-  <div class="modal">
-    <div class="modal-header">
-      <div class="modal-title">Edit Appointment</div>
-      <button class="modal-close" onclick="closeModal()">✕</button>
-    </div>
-    <div class="modal-body">
+<!-- EDIT SINGLE APPOINTMENT MODAL -->
+<div class="mo" id="editModal">
+  <div class="md">
+    <div class="mh"><div class="mt">Edit Appointment</div><button class="mc" onclick="closeModal('editModal')">✕</button></div>
+    <div class="mb">
       <input type="hidden" id="editApptId">
-      <div class="form-group">
-        <label class="form-label">Title</label>
-        <input type="text" id="editTitle">
+      <div class="fg"><label class="fl">Title</label><input type="text" id="editTitle"></div>
+      <div class="two-col">
+        <div class="fg"><label class="fl">Date</label><input type="date" id="editDate"></div>
+        <div class="fg"><label class="fl">Time</label><input type="time" id="editTime"></div>
       </div>
-      <div class="form-group">
-        <label class="form-label">Date</label>
-        <input type="date" id="editDate">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Time</label>
-        <input type="time" id="editTime">
-      </div>
-      <div class="form-group">
-        <label class="form-label">Status</label>
-        <select id="editStatus">
-          <option value="confirmed">Confirmed</option>
-          <option value="pending">Pending</option>
-          <option value="cancelled">Cancelled</option>
-        </select>
-      </div>
-      <div class="form-group">
-        <label class="form-label">Notes</label>
-        <textarea id="editNotes" style="min-height:60px;"></textarea>
-      </div>
-      <div class="error-msg" id="editError"></div>
-      <div class="success-msg" id="editSuccess"></div>
+      <div class="fg"><label class="fl">Duration (hours)</label><input type="number" id="editDuration" min="0.5" max="24" step="0.5" value="2"></div>
+      <div class="fg"><label class="fl">Status</label><select id="editStatus"><option value="confirmed">Confirmed</option><option value="pending">Pending</option><option value="cancelled">Cancelled</option></select></div>
+      <div class="fg"><label class="fl">Notes</label><textarea id="editNotes" style="min-height:60px;"></textarea></div>
+      <div class="em" id="editError"></div>
+      <div class="sm" id="editSuccess"></div>
     </div>
-    <div class="modal-footer">
-      <button class="btn-cancel-modal" onclick="closeModal()">Cancel</button>
-      <button class="btn-save-modal" onclick="saveEdit()">Save Changes</button>
+    <div class="mf">
+      <button class="btn-cancel-m" onclick="closeModal('editModal')">Cancel</button>
+      <button class="btn-save-m" onclick="saveEdit()">Save Changes</button>
     </div>
+  </div>
+</div>
+
+<!-- RESCHEDULE SERIES MODAL -->
+<div class="mo" id="rescheduleModal">
+  <div class="md">
+    <div class="mh"><div class="mt">Reschedule Series</div><button class="mc" onclick="closeModal('rescheduleModal')">✕</button></div>
+    <div class="mb">
+      <input type="hidden" id="rescheduleSeriesId">
+      <div class="modal-tabs">
+        <button class="modal-tab active" onclick="switchRescheduleTab('shift')">📅 Shift Entire Series</button>
+        <button class="modal-tab" onclick="switchRescheduleTab('single')">✏️ One Appointment</button>
+      </div>
+
+      <!-- SHIFT SERIES -->
+      <div id="reschedule-shift">
+        <p style="font-size:13px;color:var(--gray-600);margin-bottom:14px;">Change the day of week and/or time for ALL future appointments in this series.</p>
+        <div class="fg"><label class="fl">New Day of Week</label>
+          <select id="shiftDay">
+            <option value="">Keep same day</option>
+            <option value="0">Sunday</option><option value="1">Monday</option><option value="2">Tuesday</option>
+            <option value="3">Wednesday</option><option value="4">Thursday</option><option value="5">Friday</option><option value="6">Saturday</option>
+          </select>
+        </div>
+        <div class="fg"><label class="fl">New Arrival Time</label><input type="time" id="shiftTime"></div>
+        <div class="fg"><label class="fl">New Duration (hours)</label><input type="number" id="shiftDuration" min="0.5" max="24" step="0.5" value="2"></div>
+      </div>
+
+      <!-- SINGLE RESCHEDULE -->
+      <div id="reschedule-single" style="display:none;">
+        <div class="fg"><label class="fl">Select Appointment</label><select id="singleApptSelect"></select></div>
+        <div class="two-col">
+          <div class="fg"><label class="fl">New Date</label><input type="date" id="singleDate"></div>
+          <div class="fg"><label class="fl">New Time</label><input type="time" id="singleTime"></div>
+        </div>
+        <div class="fg"><label class="fl">Duration (hours)</label><input type="number" id="singleDuration" min="0.5" max="24" step="0.5" value="2"></div>
+      </div>
+
+      <div class="em" id="rescheduleError"></div>
+      <div class="sm" id="rescheduleSuccess"></div>
+    </div>
+    <div class="mf">
+      <button class="btn-cancel-m" onclick="closeModal('rescheduleModal')">Cancel</button>
+      <button class="btn-save-m" onclick="saveReschedule()">Apply Changes</button>
+    </div>
+  </div>
+</div>
+
+<!-- CANCEL SERIES MODAL -->
+<div class="mo" id="cancelModal">
+  <div class="md">
+    <div class="mh"><div class="mt">Cancel Appointments</div><button class="mc" onclick="closeModal('cancelModal')">✕</button></div>
+    <div class="mb">
+      <input type="hidden" id="cancelSeriesId">
+      <p style="font-size:13px;color:var(--gray-600);margin-bottom:16px;">Choose what to cancel for this customer:</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button class="btn-sm" style="text-align:left;padding:12px 16px;" onclick="cancelScope('future')">📅 Cancel all <strong>future</strong> appointments only</button>
+        <button class="btn-sm red" style="text-align:left;padding:12px 16px;" onclick="cancelScope('all')">🗑 Cancel <strong>all</strong> appointments (entire series)</button>
+      </div>
+      <div class="em" id="cancelError" style="margin-top:12px;"></div>
+    </div>
+    <div class="mf"><button class="btn-cancel-m" onclick="closeModal('cancelModal')">Close</button></div>
   </div>
 </div>
 
 <script>
 // ── STATE ──
-let contactId=null, contactName=null, contactPhone=null;
-let selectedDate=null, selectedTime=null;
-let duration='2h', frequency='One Time', upsell='No', review='No';
-let calYear, calMonth;
-let allUpcoming=[], allRecurring=[];
+let contactId=null,contactName=null,contactPhone=null;
+let selectedDate=null,selectedTime=null;
+let duration=2,frequency='One Time',upsell='No',review='No';
+let calYear,calMonth;
+let allCustomers={},allRecurringGroups={};
+let currentRescheduleAppts=[];
+let currentRescheduleTab='shift';
 
 // ── TABS ──
-function switchTab(tab) {
-  document.querySelectorAll('.tab').forEach((t,i) => t.classList.toggle('active', ['book','upcoming','recurring'][i]===tab));
-  document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active'));
+function switchTab(tab){
+  document.querySelectorAll('.tab').forEach((t,i)=>t.classList.toggle('active',['book','customers','recurring'][i]===tab));
+  document.querySelectorAll('.tab-content').forEach(c=>c.classList.remove('active'));
   document.getElementById('tab-'+tab).classList.add('active');
-  if (tab==='upcoming') loadUpcoming();
-  if (tab==='recurring') loadRecurring();
+  if(tab==='customers') loadCustomers();
+  if(tab==='recurring') loadRecurring();
 }
 
 // ── CALENDAR ──
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DAYS=['Su','Mo','Tu','We','Th','Fr','Sa'];
-function initCal() { const n=new Date(); calYear=n.getFullYear(); calMonth=n.getMonth(); renderCal(); }
-function renderCal() {
+function initCal(){const n=new Date();calYear=n.getFullYear();calMonth=n.getMonth();renderCal();}
+function renderCal(){
   document.getElementById('calMonth').textContent=`${MONTHS[calMonth]} ${calYear}`;
-  const g=document.getElementById('calGrid'); g.innerHTML='';
-  DAYS.forEach(d=>{ const el=document.createElement('div'); el.className='cal-dh'; el.textContent=d; g.appendChild(el); });
+  const g=document.getElementById('calGrid');g.innerHTML='';
+  DAYS.forEach(d=>{const el=document.createElement('div');el.className='caldh';el.textContent=d;g.appendChild(el);});
   const first=new Date(calYear,calMonth,1).getDay();
   const days=new Date(calYear,calMonth+1,0).getDate();
-  const today=new Date(); today.setHours(0,0,0,0);
-  for(let i=0;i<first;i++){const el=document.createElement('div');el.className='cal-d empty';g.appendChild(el);}
+  const today=new Date();today.setHours(0,0,0,0);
+  for(let i=0;i<first;i++){const el=document.createElement('div');el.className='cald empty';g.appendChild(el);}
   for(let d=1;d<=days;d++){
-    const el=document.createElement('div'); el.className='cal-d'; el.textContent=d;
+    const el=document.createElement('div');el.className='cald';el.textContent=d;
     const dt=new Date(calYear,calMonth,d);
-    if(dt<today) el.classList.add('past');
-    if(dt.toDateString()===today.toDateString()) el.classList.add('today');
-    if(selectedDate&&dt.toDateString()===selectedDate.toDateString()) el.classList.add('selected');
-    el.addEventListener('click',()=>{ selectedDate=new Date(calYear,calMonth,d); document.getElementById('calSel').textContent='✓ '+selectedDate.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' selected'; renderCal(); updateRepeatSummary(); });
+    if(dt<today)el.classList.add('past');
+    if(dt.toDateString()===today.toDateString())el.classList.add('today');
+    if(selectedDate&&dt.toDateString()===selectedDate.toDateString())el.classList.add('selected');
+    el.addEventListener('click',()=>{selectedDate=new Date(calYear,calMonth,d);document.getElementById('calSel').textContent='✓ '+selectedDate.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' selected';renderCal();updateRepeatSummary();});
     g.appendChild(el);
   }
 }
-document.getElementById('calPrev').addEventListener('click',()=>{ calMonth--; if(calMonth<0){calMonth=11;calYear--;} renderCal(); });
-document.getElementById('calNext').addEventListener('click',()=>{ calMonth++; if(calMonth>11){calMonth=0;calYear++;} renderCal(); });
+document.getElementById('calPrev').addEventListener('click',()=>{calMonth--;if(calMonth<0){calMonth=11;calYear--;}renderCal();});
+document.getElementById('calNext').addEventListener('click',()=>{calMonth++;if(calMonth>11){calMonth=0;calYear++;}renderCal();});
 
 // ── TIME ──
-function renderTimes() {
+function renderTimes(){
   const g=document.getElementById('timeGrid');
   for(let h=8;h<=15;h++){['00','30'].forEach(m=>{
     const val=`${h}:${m}`;
     const label=new Date(`2000-01-01 ${val}`).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-    const btn=document.createElement('button'); btn.className='time-btn'; btn.textContent=label; btn.dataset.val=val;
-    btn.addEventListener('click',()=>{ document.querySelectorAll('.time-btn').forEach(b=>b.classList.remove('sel')); btn.classList.add('sel'); selectedTime=val; });
+    const btn=document.createElement('button');btn.className='tbtn';btn.textContent=label;btn.dataset.val=val;
+    btn.addEventListener('click',()=>{document.querySelectorAll('.tbtn').forEach(b=>b.classList.remove('sel'));btn.classList.add('sel');selectedTime=val;});
     g.appendChild(btn);
   });}
 }
 
-// ── CHIPS ──
-function initChips(id, setter) {
-  document.getElementById(id).querySelectorAll('.chip').forEach(btn=>{
-    btn.addEventListener('click',()=>{ document.getElementById(id).querySelectorAll('.chip').forEach(b=>b.classList.remove('sel')); btn.classList.add('sel'); setter(btn.dataset.val); });
+// ── DURATION ──
+function initDuration(){
+  document.getElementById('durGroup').querySelectorAll('.chip').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.getElementById('durGroup').querySelectorAll('.chip').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');
+      if(btn.dataset.val==='custom'){
+        document.getElementById('customDurWrap').style.display='flex';
+        duration=parseFloat(document.getElementById('customDur').value)||2.5;
+      } else {
+        document.getElementById('customDurWrap').style.display='none';
+        duration=parseFloat(btn.dataset.val);
+      }
+    });
   });
+  document.getElementById('customDur').addEventListener('input',function(){duration=parseFloat(this.value)||2;});
 }
 
 // ── REPEAT SUMMARY ──
 const freqDays={'Weekly':7,'Bi-Weekly':14,'Every 3 Wks':21,'Every 4 Wks':28};
-function updateRepeatSummary() {
+function updateRepeatSummary(){
   const count=parseInt(document.getElementById('repeatCount').value)||4;
   const days=freqDays[frequency];
-  if(!days||!selectedDate){ document.getElementById('repeatSummary').textContent=count+' appointments'; return; }
+  if(!days||!selectedDate){document.getElementById('repeatSummary').textContent=count+' appointments';return;}
   const last=new Date(selectedDate.getTime()+(count-1)*days*86400000);
   document.getElementById('repeatSummary').textContent=count+' appointments · last '+last.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'});
 }
 document.getElementById('repeatCount').addEventListener('input',updateRepeatSummary);
 
+// ── FREQ CHIPS ──
+function initFreq(){
+  document.getElementById('freqGroup').querySelectorAll('.chip').forEach(btn=>{
+    btn.addEventListener('click',()=>{
+      document.getElementById('freqGroup').querySelectorAll('.chip').forEach(b=>b.classList.remove('sel'));
+      btn.classList.add('sel');frequency=btn.dataset.val;
+      document.getElementById('repeatWrap').style.display=frequency==='One Time'?'none':'block';
+      updateRepeatSummary();
+    });
+  });
+}
+
 // ── AUTOMATIONS ──
 document.querySelectorAll('.tog').forEach(btn=>{
   btn.addEventListener('click',()=>{
-    const t=btn.dataset.target, v=btn.dataset.val;
+    const t=btn.dataset.target,v=btn.dataset.val;
     document.querySelectorAll(`.tog[data-target="${t}"]`).forEach(b=>b.classList.remove('sel'));
     btn.classList.add('sel');
-    if(t==='upsell'){upsell=v; document.getElementById('upsellRow').classList.toggle('on',v==='Yes');}
-    if(t==='review'){review=v; document.getElementById('reviewRow').classList.toggle('on',v==='Yes');}
+    if(t==='upsell'){upsell=v;document.getElementById('upsellRow').classList.toggle('on',v==='Yes');}
+    if(t==='review'){review=v;document.getElementById('reviewRow').classList.toggle('on',v==='Yes');}
   });
 });
 
-// ── NOTES ──
 document.getElementById('jobNotes').addEventListener('input',function(){document.getElementById('noteCount').textContent=this.value.length;});
 
 // ── CUSTOMER SEARCH ──
 let searchTimer;
 document.getElementById('customerSearch').addEventListener('input',function(){
-  clearTimeout(searchTimer); const q=this.value.trim();
+  clearTimeout(searchTimer);const q=this.value.trim();
   if(q.length<2){document.getElementById('searchResults').classList.remove('open');return;}
   searchTimer=setTimeout(()=>doSearch(q),350);
 });
-document.addEventListener('click',e=>{ if(!document.getElementById('searchWrap').contains(e.target)) document.getElementById('searchResults').classList.remove('open'); });
+document.addEventListener('click',e=>{if(!document.getElementById('searchWrap').contains(e.target))document.getElementById('searchResults').classList.remove('open');});
 
-async function doSearch(q) {
+async function doSearch(q){
   const el=document.getElementById('searchResults');
-  el.innerHTML='<div class="s-item" style="color:var(--gray-400);font-size:13px">Searching...</div>';
+  el.innerHTML='<div class="si2" style="color:var(--gray-400);font-size:13px">Searching...</div>';
   el.classList.add('open');
-  try {
-    const r=await fetch(`https://services.leadconnectorhq.com/contacts/?locationId=${CONFIG.GHL_LOCATION_ID}&query=${encodeURIComponent(q)}&limit=8`,{headers:GHL_HEADERS});
-    const data=await r.json(); const contacts=data.contacts||[];
-    if(!contacts.length){el.innerHTML='<div class="s-item" style="color:var(--gray-400);font-size:13px">No contacts found</div>';return;}
+  try{
+    const r=await fetch(`https://services.leadconnectorhq.com/contacts/?locationId=${CONFIG.GHL_LOCATION_ID}&query=${encodeURIComponent(q)}&limit=8`,{headers:GHL_H});
+    const data=await r.json();const contacts=data.contacts||[];
+    if(!contacts.length){el.innerHTML='<div class="si2" style="color:var(--gray-400);font-size:13px">No contacts found</div>';return;}
     el.innerHTML='';
     contacts.forEach(c=>{
       const name=`${c.firstName||''} ${c.lastName||''}`.trim()||'Unknown';
       const sub=c.phone||c.email||'';
-      const item=document.createElement('div'); item.className='s-item';
-      item.innerHTML=`<div class="s-name">${name}</div><div class="s-sub">${sub}</div>`;
+      const item=document.createElement('div');item.className='si2';
+      item.innerHTML=`<div class="sn">${name}</div><div class="ss">${sub}</div>`;
       item.addEventListener('click',()=>pickContact(c.id,name,sub));
       el.appendChild(item);
     });
-  } catch(e){el.innerHTML='<div class="s-item" style="color:var(--red);font-size:13px">Search error</div>';}
+  }catch(e){el.innerHTML='<div class="si2" style="color:var(--red);font-size:13px">Search error</div>';}
 }
 
-function pickContact(id,name,sub) {
-  contactId=id; contactName=name; contactPhone=sub;
+function pickContact(id,name,sub){
+  contactId=id;contactName=name;contactPhone=sub;
   document.getElementById('customerSearch').style.display='none';
   document.getElementById('searchResults').classList.remove('open');
   document.getElementById('selName').textContent=name;
@@ -527,7 +577,7 @@ function pickContact(id,name,sub) {
   document.getElementById('selectedCustomer').classList.add('show');
 }
 document.getElementById('clearBtn').addEventListener('click',()=>{
-  contactId=null; contactName=null; contactPhone=null;
+  contactId=null;contactName=null;contactPhone=null;
   document.getElementById('customerSearch').style.display='';
   document.getElementById('customerSearch').value='';
   document.getElementById('selectedCustomer').classList.remove('show');
@@ -535,337 +585,466 @@ document.getElementById('clearBtn').addEventListener('click',()=>{
 
 // ── SUBMIT ──
 document.getElementById('submitBtn').addEventListener('click',async()=>{
-  const errEl=document.getElementById('errorMsg'), sucEl=document.getElementById('successMsg');
-  errEl.classList.remove('show'); sucEl.classList.remove('show');
+  const errEl=document.getElementById('errorMsg'),sucEl=document.getElementById('successMsg');
+  errEl.classList.remove('show');sucEl.classList.remove('show');
   const errors=[];
-  if(!contactId) errors.push('Select a customer');
-  if(!document.getElementById('apptTitle').value.trim()) errors.push('Add a title');
-  if(!selectedDate) errors.push('Select a date');
-  if(!selectedTime) errors.push('Select a time');
-  if(errors.length){errEl.textContent=errors.join(' · '); errEl.classList.add('show'); return;}
-
-  const btn=document.getElementById('submitBtn'); btn.classList.add('loading'); btn.disabled=true;
-  try {
+  if(!contactId)errors.push('Select a customer');
+  if(!document.getElementById('apptTitle').value.trim())errors.push('Add a title');
+  if(!selectedDate)errors.push('Select a date');
+  if(!selectedTime)errors.push('Select a time');
+  if(errors.length){errEl.textContent=errors.join(' · ');errEl.classList.add('show');return;}
+  const btn=document.getElementById('submitBtn');btn.classList.add('loading');btn.disabled=true;
+  try{
     const [h,m]=selectedTime.split(':').map(Number);
-    const durMins={'1h':60,'1.5h':90,'2h':120,'3h':180,'4h':240}[duration]||120;
-    const intervalDays={'One Time':0,'Weekly':7,'Bi-Weekly':14,'Every 3 Wks':21,'Every 4 Wks':28}[frequency]||0;
+    const durMins=Math.round(duration*60);
+    const intervalDays=freqDays[frequency]||0;
     const repeatCount=frequency==='One Time'?1:(parseInt(document.getElementById('repeatCount').value)||4);
     const title=document.getElementById('apptTitle').value.trim();
     const notes=document.getElementById('jobNotes').value.trim();
     const recurringId=frequency!=='One Time'?`rec_${Date.now()}`:'';
-    const customField=[
-      {id:'job_value',value:document.getElementById('jobValue').value||'0'},
-      {id:'service_type',value:document.getElementById('serviceType').value},
-      {id:'cleaning_frequency',value:frequency},
-      {id:'send_recurring_upsell',value:upsell},
-      {id:'request_review',value:review},
-    ];
+    const jobVal=parseFloat(document.getElementById('jobValue').value||'0');
 
     let apptId=null;
     for(let i=0;i<repeatCount;i++){
-      const start=new Date(selectedDate); start.setHours(h,m,0,0);
+      const start=new Date(selectedDate);start.setHours(h,m,0,0);
       start.setDate(start.getDate()+i*intervalDays);
       const end=new Date(start.getTime()+durMins*60000);
       const fullNotes=recurringId?`${notes}\nrecurring_id:${recurringId}`.trim():notes;
       const res=await fetch('https://services.leadconnectorhq.com/calendars/events/appointments',{
-        method:'POST', headers:GHL_HEADERS,
-        body:JSON.stringify({calendarId:CONFIG.GHL_CALENDAR_ID,locationId:CONFIG.GHL_LOCATION_ID,contactId,startTime:start.toISOString(),endTime:end.toISOString(),title,appointmentStatus:'confirmed',notes:fullNotes,customField})
+        method:'POST',headers:GHL_H,
+        body:JSON.stringify({calendarId:CONFIG.GHL_CALENDAR_ID,locationId:CONFIG.GHL_LOCATION_ID,contactId,startTime:start.toISOString(),endTime:end.toISOString(),title,appointmentStatus:'confirmed',notes:fullNotes})
       });
       if(!res.ok){const e=await res.json();throw new Error(`Appt ${i+1} failed: ${e.message||'GHL error'}`);}
       if(i===0){const d=await res.json();apptId=d.id||d.appointment?.id;}
-    }
 
-    // Create Booking record in GHL custom object for revenue tracking
-    for(let i=0;i<repeatCount;i++){
-      const bookingDate=new Date(selectedDate); bookingDate.setHours(h,m,0,0);
-      bookingDate.setDate(bookingDate.getDate()+i*intervalDays);
+      // Create booking record
       await fetch(`https://services.leadconnectorhq.com/objects/${CONFIG.GHL_BOOKINGS_OBJECT_ID}/records`,{
-        method:'POST', headers:GHL_HEADERS,
+        method:'POST',headers:GHL_H,
         body:JSON.stringify({
-          properties:{
-            job_value: parseFloat(document.getElementById('jobValue').value||'0'),
-            service_type: document.getElementById('serviceType').value,
-            cleaning_frequency: frequency,
-            send_recurring_upsell: upsell,
-            request_review: review,
-            booking: title,
-          },
-          associations:[{
-            objectType:'contact',
-            objectId: contactId,
-          }]
+          properties:{job_value:jobVal,service_type:document.getElementById('serviceType').value,cleaning_frequency:frequency,send_recurring_upsell:upsell,request_review:review,booking:title},
+          associations:[{objectType:'contact',objectId:contactId}]
         })
-      }).catch(e=>console.warn('Booking record failed:',e));
+      }).catch(e=>console.warn('Booking record:',e));
     }
 
-    const label=repeatCount>1?`✅ ${repeatCount} appointments booked for ${contactName} starting ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`:`✅ Booked for ${contactName} — ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`;
-    sucEl.textContent=label; sucEl.classList.add('show');
+    const label=repeatCount>1?`✅ ${repeatCount} appointments booked for ${contactName} starting ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`:`✅ Booked for ${contactName} on ${selectedDate.toLocaleDateString('en-US',{weekday:'long',month:'long',day:'numeric'})}`;
+    sucEl.textContent=label;sucEl.classList.add('show');
     setTimeout(()=>location.reload(),3500);
-  } catch(e){errEl.textContent=`Error: ${e.message}`; errEl.classList.add('show');}
-  finally{btn.classList.remove('loading'); btn.disabled=false;}
+  }catch(e){errEl.textContent=`Error: ${e.message}`;errEl.classList.add('show');}
+  finally{btn.classList.remove('loading');btn.disabled=false;}
 });
 
-// ── LOAD UPCOMING ──
-async function loadUpcoming() {
-  document.getElementById('upcomingList').innerHTML='<div class="loading-state">Loading...</div>';
-  try {
+// ── COLORS FOR AVATARS ──
+const avatarColors=['#22c55e','#3b82f6','#f59e0b','#a855f7','#ef4444','#06b6d4','#f97316'];
+function getColor(str){let h=0;for(let c of str)h=((h<<5)-h)+c.charCodeAt(0);return avatarColors[Math.abs(h)%avatarColors.length];}
+function initials(name){return name.split(' ').map(w=>w[0]||'').join('').toUpperCase().slice(0,2);}
+
+// ── LOAD CUSTOMERS ──
+async function loadCustomers(){
+  document.getElementById('customerList').innerHTML='<div class="loading-state">Loading...</div>';
+  try{
     const now=new Date();
-    const end=new Date(); end.setMonth(end.getMonth()+3);
-    const r=await fetch(`https://services.leadconnectorhq.com/calendars/events?locationId=${CONFIG.GHL_LOCATION_ID}&calendarId=${CONFIG.GHL_CALENDAR_ID}&startTime=${now.getTime()}&endTime=${end.getTime()}&includeAll=true`,{headers:GHL_HEADERS});
+    const end=new Date();end.setMonth(end.getMonth()+6);
+    const r=await fetch(`https://services.leadconnectorhq.com/calendars/events?locationId=${CONFIG.GHL_LOCATION_ID}&calendarId=${CONFIG.GHL_CALENDAR_ID}&startTime=${now.getTime()}&endTime=${end.getTime()}&includeAll=true`,{headers:GHL_H});
     const data=await r.json();
     const events=(data.events||data.appointments||[]).sort((a,b)=>new Date(a.startTime)-new Date(b.startTime));
-    // Fetch contact names for events that have a contactId
     const contactCache={};
+    const groups={};
     for(const a of events){
       const cid=a.contactId||a.contact?.id;
-      if(cid && !contactCache[cid]){
+      if(!cid) continue;
+      if(!contactCache[cid]){
         try{
-          const cr=await fetch(`https://services.leadconnectorhq.com/contacts/${cid}`,{headers:GHL_HEADERS});
-          const cd=await cr.json();
-          const c=cd.contact||cd;
-          contactCache[cid]=`${c.firstName||''} ${c.lastName||''}`.trim()||c.email||c.phone||'Unknown';
-        }catch(e){contactCache[cid]='Unknown';}
+          const cr=await fetch(`https://services.leadconnectorhq.com/contacts/${cid}`,{headers:GHL_H});
+          const cd=await cr.json();const c=cd.contact||cd;
+          contactCache[cid]={name:`${c.firstName||''} ${c.lastName||''}`.trim()||'Unknown',phone:c.phone||'',email:c.email||''};
+        }catch(e){contactCache[cid]={name:'Unknown',phone:'',email:''};}
       }
-      a._contactName=cid?contactCache[cid]:'Unknown Contact';
-      a._contactId=cid||'unknown';
+      a._contact=contactCache[cid];a._contactId=cid;
+      if(!groups[cid])groups[cid]={contact:contactCache[cid],appts:[],id:cid};
+      groups[cid].appts.push(a);
     }
-    allUpcoming=events;
-    renderUpcoming(allUpcoming);
-  } catch(e){document.getElementById('upcomingList').innerHTML=`<div class="loading-state" style="color:var(--red)">Error loading: ${e.message}</div>`;}
+    allCustomers=groups;
+    renderCustomers(groups);
+  }catch(e){document.getElementById('customerList').innerHTML=`<div class="loading-state" style="color:var(--red)">Error: ${e.message}</div>`;}
 }
 
-function renderUpcoming(appts) {
-  const el=document.getElementById('upcomingList');
-  if(!appts.length){el.innerHTML='<div class="empty-state"><div class="empty-state-icon">📭</div><div class="empty-state-title">No upcoming appointments</div><div>Book one using the Book tab</div></div>';return;}
-  const groups={};
-  appts.forEach(a=>{
-    const key=a._contactId||'unknown';
-    const name=a._contactName||'Unknown Contact';
-    if(!groups[key]) groups[key]={name,ids:[],appts:[]};
-    groups[key].appts.push(a);
-    groups[key].ids.push(a.id);
-  });
-  let html='<div style="display:flex;justify-content:flex-end;margin-bottom:10px;"><button class="btn-refresh" onclick="bulkDeleteSelected()" style="background:#fee2e2;color:#b91c1c;border-color:#fca5a5;">🗑 Delete Selected</button></div>';
-  Object.keys(groups).forEach(gKey=>{
-    const g=groups[gKey];
-    html+=`<div style="margin-bottom:18px;">
-      <div style="display:flex;align-items:center;justify-content:space-between;background:var(--gray-100);border-radius:10px;padding:10px 14px;margin-bottom:8px;">
-        <div style="font-weight:700;font-size:14px;">👤 ${g.name} <span style="font-weight:400;font-size:12px;color:var(--gray-400);">(${g.appts.length} appts)</span></div>
-        <div style="display:flex;gap:6px;">
-          <button class="btn-edit" onclick="selectGroup('${gKey}')">☑ All</button>
-          <button class="btn-delete" onclick="deleteGroup('${g.ids.join(',')}')">🗑 All</button>
+function renderCustomers(groups){
+  const el=document.getElementById('customerList');
+  const keys=Object.keys(groups);
+  if(!keys.length){el.innerHTML='<div class="empty-state"><div class="es-icon">👥</div><div class="es-title">No customers with appointments</div><div>Book an appointment first</div></div>';return;}
+  el.innerHTML=keys.map(cid=>{
+    const g=groups[cid];
+    const c=g.contact;
+    const color=getColor(c.name);
+    const ini=initials(c.name);
+    const nextAppt=g.appts[0];
+    const nextDt=nextAppt?new Date(nextAppt.startTime):null;
+    const nextStr=nextDt?nextDt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})+' · '+nextDt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}):'';
+    const recurringId=(nextAppt?.notes||'').match(/recurring_id:(rec_\d+)/)?.[1];
+
+    return `<div class="cust-card" id="cc-${cid}">
+      <div class="cust-header" onclick="toggleCustomer('${cid}')">
+        <div style="display:flex;align-items:center;flex:1;">
+          <div class="cust-avatar" style="background:${color}">${ini}</div>
+          <div class="cust-info">
+            <div class="cust-name">${c.name}</div>
+            <div class="cust-meta">${g.appts.length} appt${g.appts.length!==1?'s':''} · Next: ${nextStr||'—'}</div>
+          </div>
         </div>
+        <span class="cust-chevron">▾</span>
       </div>
-      ${g.appts.map(a=>{
-        const dt=new Date(a.startTime);
-        const dateStr=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-        const timeStr=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-        const status=a.appointmentStatus||a.status||'confirmed';
-        const safeTitle=(a.title||'').replace(/'/g,'&apos;');
-        const safeNotes=(a.notes||'').replace(/'/g,'&apos;').replace(/\n/g,' ');
-        return `<div class="appt-card" style="display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;">
-          <input type="checkbox" class="appt-checkbox" data-id="${a.id}" data-group="${gKey}" style="margin-top:4px;width:16px;height:16px;accent-color:var(--green);flex-shrink:0;">
-          <div style="flex:1;">
-            <div class="appt-card-top">
-              <div><div class="appt-title-text">${a.title||'Appointment'}</div></div>
-              <div class="appt-actions">
-                <button class="btn-edit" onclick="openEditById('${a.id}')">✏️</button>
-                <button class="btn-delete" onclick="deleteAppt('${a.id}',true)">🗑</button>
+      <div class="cust-actions">
+        <button class="btn-sm green" onclick="openReschedule('${cid}')">📅 Reschedule</button>
+        <button class="btn-sm red" onclick="openCancel('${cid}')">✕ Cancel</button>
+      </div>
+      <div class="cust-appts" id="ca-${cid}">
+        ${g.appts.map(a=>{
+          const dt=new Date(a.startTime);
+          const ds=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+          const ts=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+          const status=a.appointmentStatus||a.status||'confirmed';
+          return `<div class="appt-row">
+            <div class="appt-row-left">
+              <div>
+                <div class="appt-row-date">${a.title||'Appointment'}</div>
+                <div class="appt-row-time">📅 ${ds} · ${ts}</div>
               </div>
+              <span class="abadge ab-${status}">${status}</span>
             </div>
-            <div class="appt-meta">
-              <span class="appt-badge badge-date">📅 ${dateStr} · ${timeStr}</span>
-              <span class="appt-badge badge-status-${status}">${status}</span>
+            <div class="appt-row-actions">
+              <button class="btn-sm" onclick="openEditSingle('${a.id}')">✏️ Edit</button>
+              <button class="btn-sm red" onclick="deleteSingleAppt('${a.id}','${cid}')">🗑</button>
             </div>
-          </div>
-        </div>`;
-      }).join('')}
-    </div>`;
-  });
-  el.innerHTML=html;
-}
-
-function selectGroup(gKey) {
-  document.querySelectorAll(`.appt-checkbox[data-group="${gKey}"]`).forEach(cb=>cb.checked=true);
-}
-
-async function bulkDeleteSelected() {
-  const checked=[...document.querySelectorAll('.appt-checkbox:checked')];
-  if(!checked.length){alert('Select at least one appointment first.');return;}
-  
-  let failed=0;
-  for(const cb of checked){ const ok=await deleteAppt(cb.dataset.id,false); if(!ok) failed++; }
-  if(failed) alert(`${failed} could not be deleted.`);
-  loadUpcoming();
-}
-
-async function deleteGroup(ids) {
-  const idArr=ids.split(',');
-  
-  let failed=0;
-  for(const id of idArr){ const ok=await deleteAppt(id,false); if(!ok) failed++; }
-  if(failed) alert(`${failed} could not be deleted.`);
-  loadUpcoming();
-}
-
-function openEditById(id) {
-  const a=allUpcoming.find(x=>x.id===id);
-  if(!a) return;
-  const status=a.appointmentStatus||a.status||'confirmed';
-  openEdit(a.id,a.title||'',a.startTime,status,a.notes||'');
-}
-
-
-
-function filterUpcoming(q) {
-  const filtered=allUpcoming.filter(a=>(a.title||'').toLowerCase().includes(q.toLowerCase())||(a._contactName||'').toLowerCase().includes(q.toLowerCase()));
-  renderUpcoming(filtered);
-}
-
-// ── LOAD RECURRING ──
-async function loadRecurring() {
-  document.getElementById('recurringList').innerHTML='<div class="loading-state">Loading...</div>';
-  try {
-    const now=new Date();
-    const end=new Date(); end.setMonth(end.getMonth()+6);
-    const r=await fetch(`https://services.leadconnectorhq.com/calendars/events?locationId=${CONFIG.GHL_LOCATION_ID}&calendarId=${CONFIG.GHL_CALENDAR_ID}&startTime=${now.getTime()}&endTime=${end.getTime()}&includeAll=true`,{headers:GHL_HEADERS});
-    const data=await r.json();
-    const appts=data.events||data.appointments||[];
-    // Group by recurring_id in notes
-    const groups={};
-    const singles=[];
-    appts.forEach(a=>{
-      const match=(a.notes||'').match(/recurring_id:(rec_\d+)/);
-      if(match){const id=match[1]; if(!groups[id]) groups[id]=[]; groups[id].push(a);}
-      else singles.push(a);
-    });
-    allRecurring={groups,singles};
-    renderRecurring(groups,singles);
-  } catch(e){document.getElementById('recurringList').innerHTML=`<div class="loading-state" style="color:var(--red)">Error: ${e.message}</div>`;}
-}
-
-function renderRecurring(groups,singles) {
-  const el=document.getElementById('recurringList');
-  let html='';
-  const groupKeys=Object.keys(groups);
-  if(!groupKeys.length&&!singles.length){el.innerHTML='<div class="empty-state"><div class="empty-state-icon">🔄</div><div class="empty-state-title">No recurring series found</div><div>Book recurring appointments in the Book tab</div></div>';return;}
-  groupKeys.forEach(id=>{
-    const appts=groups[id].sort((a,b)=>new Date(a.startTime)-new Date(b.startTime));
-    const first=appts[0]; const last=appts[appts.length-1];
-    const firstDt=new Date(first.startTime);
-    const lastDt=new Date(last.startTime);
-    const contact=first.contactName||first.contact?.name||'Unknown';
-    html+=`<div class="recurring-group">
-      <div class="recurring-group-header">
-        <div><div class="recurring-group-title">🔄 ${contact} — ${first.title||'Recurring'}</div><div class="recurring-group-sub">${appts.length} appointments · ${firstDt.toLocaleDateString('en-US',{month:'short',day:'numeric'})} → ${lastDt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div></div>
-        <button class="btn-delete-series" onclick="deleteSeries('${id}')">Cancel Series</button>
+          </div>`;
+        }).join('')}
       </div>
-      ${appts.map(a=>{
-        const dt=new Date(a.startTime);
-        const dateStr=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
-        const timeStr=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
-        const status=a.appointmentStatus||a.status||'confirmed';
-        return `<div class="appt-card" style="margin-left:12px;">
-          <div class="appt-card-top">
-            <div><div class="appt-title-text">${dateStr} · ${timeStr}</div></div>
-            <div class="appt-actions">
-              <button class="btn-edit" onclick="openEdit('${a.id}','${(a.title||'').replace(/'/g,"\\'")}','${a.startTime}','${status}','${(a.notes||'').replace(/'/g,"\\'").replace(/\n/g,' ')}')">✏️ Edit</button>
-              <button class="btn-delete" onclick="deleteAppt('${a.id}',false)">🗑</button>
-            </div>
-          </div>
-          <div class="appt-meta"><span class="appt-badge badge-status-${status}">${status}</span></div>
-        </div>`;
-      }).join('')}
     </div>`;
-  });
-  el.innerHTML=html;
+  }).join('');
 }
 
-function filterRecurring(q) {
-  if(!allRecurring) return;
-  const {groups,singles}=allRecurring;
+function toggleCustomer(cid){
+  const hdr=document.querySelector(`#cc-${cid} .cust-header`);
+  const appts=document.getElementById(`ca-${cid}`);
+  hdr.classList.toggle('open');
+  appts.classList.toggle('open');
+}
+
+function filterCustomers(q){
   const filtered={};
-  Object.keys(groups).forEach(id=>{
-    const appts=groups[id];
-    const contact=appts[0]?.contactName||appts[0]?.contact?.name||'';
-    if(contact.toLowerCase().includes(q.toLowerCase())) filtered[id]=appts;
+  Object.keys(allCustomers).forEach(cid=>{
+    const g=allCustomers[cid];
+    if(g.contact.name.toLowerCase().includes(q.toLowerCase())||g.contact.phone.includes(q)||g.contact.email.toLowerCase().includes(q.toLowerCase()))
+      filtered[cid]=g;
   });
-  renderRecurring(filtered,singles);
+  renderCustomers(filtered);
 }
 
-// ── DELETE SINGLE ──
-async function deleteAppt(id, reload=true) {
-  
-  try {
-    const r=await fetch(`https://services.leadconnectorhq.com/calendars/events/${id}`,{method:'DELETE',headers:GHL_HEADERS});
-    if(!r.ok) throw new Error('Delete failed');
-    if(reload){loadUpcoming(); loadRecurring();}
-    return true;
-  } catch(e){alert('Error: '+e.message); return false;}
-}
+// ── RESCHEDULE ──
+function openReschedule(cid){
+  const g=allCustomers[cid];
+  if(!g) return;
+  currentRescheduleAppts=g.appts;
+  document.getElementById('rescheduleSeriesId').value=cid;
+  document.getElementById('rescheduleError').classList.remove('show');
+  document.getElementById('rescheduleSuccess').classList.remove('show');
 
-// ── DELETE SERIES ──
-async function deleteSeries(recurringId) {
-  if(!allRecurring||!allRecurring.groups[recurringId]) return;
-  const appts=allRecurring.groups[recurringId];
-  if(!confirm(`Cancel all ${appts.length} appointments in this series?`)) return;
-  let failed=0;
-  for(const a of appts){
-    const ok=await deleteAppt(a.id,false);
-    if(!ok) failed++;
+  // Populate single appt dropdown
+  const sel=document.getElementById('singleApptSelect');
+  sel.innerHTML=g.appts.map(a=>{
+    const dt=new Date(a.startTime);
+    const ds=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+    const ts=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+    return `<option value="${a.id}" data-start="${a.startTime}">${a.title||'Appointment'} — ${ds} ${ts}</option>`;
+  }).join('');
+
+  // Pre-fill time from first appt
+  if(g.appts[0]){
+    const dt=new Date(g.appts[0].startTime);
+    document.getElementById('shiftTime').value=dt.toTimeString().slice(0,5);
+    document.getElementById('singleDate').value=dt.toISOString().split('T')[0];
+    document.getElementById('singleTime').value=dt.toTimeString().slice(0,5);
   }
-  if(failed) alert(`${failed} appointments could not be deleted.`);
-  loadRecurring();
+
+  switchRescheduleTab('shift');
+  document.getElementById('rescheduleModal').classList.add('open');
 }
 
-// ── EDIT MODAL ──
-function openEdit(id,title,startTime,status,notes) {
-  document.getElementById('editApptId').value=id;
-  document.getElementById('editTitle').value=title;
-  const dt=new Date(startTime);
+function switchRescheduleTab(tab){
+  currentRescheduleTab=tab;
+  document.querySelectorAll('.modal-tab').forEach((t,i)=>t.classList.toggle('active',['shift','single'][i]===tab));
+  document.getElementById('reschedule-shift').style.display=tab==='shift'?'block':'none';
+  document.getElementById('reschedule-single').style.display=tab==='single'?'block':'none';
+}
+
+async function saveReschedule(){
+  const errEl=document.getElementById('rescheduleError'),sucEl=document.getElementById('rescheduleSuccess');
+  errEl.classList.remove('show');sucEl.classList.remove('show');
+
+  if(currentRescheduleTab==='shift'){
+    // Shift entire series
+    const newDay=document.getElementById('shiftDay').value;
+    const newTime=document.getElementById('shiftTime').value;
+    const newDur=parseFloat(document.getElementById('shiftDuration').value||'2');
+    if(!newTime){errEl.textContent='Please set a new arrival time';errEl.classList.add('show');return;}
+    const [nh,nm]=newTime.split(':').map(Number);
+    let failed=0;
+    for(const a of currentRescheduleAppts){
+      const dt=new Date(a.startTime);
+      if(newDay!=='') {
+        // Shift to new day of week
+        const currentDay=dt.getDay();
+        const targetDay=parseInt(newDay);
+        let diff=targetDay-currentDay;
+        dt.setDate(dt.getDate()+diff);
+      }
+      dt.setHours(nh,nm,0,0);
+      const end=new Date(dt.getTime()+newDur*60*60000);
+      try{
+        const res=await fetch(`https://services.leadconnectorhq.com/calendars/events/appointments/${a.id}`,{
+          method:'PUT',headers:GHL_H,
+          body:JSON.stringify({startTime:dt.toISOString(),endTime:end.toISOString(),title:a.title,appointmentStatus:a.appointmentStatus||'confirmed',notes:a.notes||''})
+        });
+        if(!res.ok) failed++;
+      }catch(e){failed++;}
+    }
+    if(failed){errEl.textContent=`${failed} appointments could not be updated`;errEl.classList.add('show');}
+    else{sucEl.textContent=`✅ All ${currentRescheduleAppts.length} appointments rescheduled`;sucEl.classList.add('show');setTimeout(()=>{closeModal('rescheduleModal');loadCustomers();loadRecurring();},1500);}
+
+  } else {
+    // Single appointment reschedule
+    const apptId=document.getElementById('singleApptSelect').value;
+    const newDate=document.getElementById('singleDate').value;
+    const newTime=document.getElementById('singleTime').value;
+    const newDur=parseFloat(document.getElementById('singleDuration').value||'2');
+    if(!newDate||!newTime){errEl.textContent='Select a date and time';errEl.classList.add('show');return;}
+    const start=new Date(`${newDate}T${newTime}:00`);
+    const end=new Date(start.getTime()+newDur*60*60000);
+    const appt=currentRescheduleAppts.find(a=>a.id===apptId);
+    try{
+      const res=await fetch(`https://services.leadconnectorhq.com/calendars/events/appointments/${apptId}`,{
+        method:'PUT',headers:GHL_H,
+        body:JSON.stringify({startTime:start.toISOString(),endTime:end.toISOString(),title:appt?.title||'Appointment',appointmentStatus:appt?.appointmentStatus||'confirmed',notes:appt?.notes||''})
+      });
+      if(!res.ok) throw new Error('Update failed');
+      sucEl.textContent='✅ Appointment rescheduled';sucEl.classList.add('show');
+      setTimeout(()=>{closeModal('rescheduleModal');loadCustomers();},1500);
+    }catch(e){errEl.textContent='Error: '+e.message;errEl.classList.add('show');}
+  }
+}
+
+// ── CANCEL ──
+function openCancel(cid){
+  document.getElementById('cancelSeriesId').value=cid;
+  document.getElementById('cancelError').classList.remove('show');
+  document.getElementById('cancelModal').classList.add('open');
+}
+
+async function cancelScope(scope){
+  const cid=document.getElementById('cancelSeriesId').value;
+  const g=allCustomers[cid];
+  if(!g) return;
+  const now=new Date();
+  const toCancel=scope==='future'?g.appts.filter(a=>new Date(a.startTime)>now):g.appts;
+  const errEl=document.getElementById('cancelError');
+  let failed=0;
+  for(const a of toCancel){
+    try{
+      const res=await fetch(`https://services.leadconnectorhq.com/calendars/events/${a.id}`,{method:'DELETE',headers:GHL_H});
+      if(!res.ok) failed++;
+    }catch(e){failed++;}
+  }
+  if(failed){errEl.textContent=`${failed} could not be cancelled`;errEl.classList.add('show');}
+  else{closeModal('cancelModal');loadCustomers();loadRecurring();}
+}
+
+// ── EDIT SINGLE ──
+function openEditSingle(apptId){
+  const appt=Object.values(allCustomers).flatMap(g=>g.appts).find(a=>a.id===apptId);
+  if(!appt) return;
+  const dt=new Date(appt.startTime);
+  const endDt=new Date(appt.endTime||appt.startTime);
+  const durH=(endDt-dt)/3600000||2;
+  document.getElementById('editApptId').value=apptId;
+  document.getElementById('editTitle').value=appt.title||'';
   document.getElementById('editDate').value=dt.toISOString().split('T')[0];
   document.getElementById('editTime').value=dt.toTimeString().slice(0,5);
-  document.getElementById('editStatus').value=status;
-  document.getElementById('editNotes').value=notes;
+  document.getElementById('editDuration').value=durH;
+  document.getElementById('editStatus').value=appt.appointmentStatus||appt.status||'confirmed';
+  document.getElementById('editNotes').value=appt.notes||'';
   document.getElementById('editError').classList.remove('show');
   document.getElementById('editSuccess').classList.remove('show');
   document.getElementById('editModal').classList.add('open');
 }
-function closeModal(){document.getElementById('editModal').classList.remove('open');}
 
-async function saveEdit() {
+async function saveEdit(){
   const id=document.getElementById('editApptId').value;
   const date=document.getElementById('editDate').value;
   const time=document.getElementById('editTime').value;
-  const errEl=document.getElementById('editError'); const sucEl=document.getElementById('editSuccess');
-  errEl.classList.remove('show'); sucEl.classList.remove('show');
-  try {
-    const startTime=new Date(`${date}T${time}:00`).toISOString();
-    const endTime=new Date(new Date(`${date}T${time}:00`).getTime()+120*60000).toISOString();
+  const dur=parseFloat(document.getElementById('editDuration').value||'2');
+  const errEl=document.getElementById('editError'),sucEl=document.getElementById('editSuccess');
+  errEl.classList.remove('show');sucEl.classList.remove('show');
+  try{
+    const start=new Date(`${date}T${time}:00`);
+    const end=new Date(start.getTime()+dur*60*60000);
     const res=await fetch(`https://services.leadconnectorhq.com/calendars/events/appointments/${id}`,{
-      method:'PUT', headers:GHL_HEADERS,
-      body:JSON.stringify({
-        title:document.getElementById('editTitle').value,
-        startTime, endTime,
-        appointmentStatus:document.getElementById('editStatus').value,
-        notes:document.getElementById('editNotes').value,
-      })
+      method:'PUT',headers:GHL_H,
+      body:JSON.stringify({title:document.getElementById('editTitle').value,startTime:start.toISOString(),endTime:end.toISOString(),appointmentStatus:document.getElementById('editStatus').value,notes:document.getElementById('editNotes').value})
     });
     if(!res.ok){const e=await res.json();throw new Error(e.message||'Update failed');}
-    sucEl.textContent='✅ Appointment updated!'; sucEl.classList.add('show');
-    setTimeout(()=>{closeModal(); loadUpcoming(); loadRecurring();},1500);
-  } catch(e){errEl.textContent='Error: '+e.message; errEl.classList.add('show');}
+    sucEl.textContent='✅ Appointment updated!';sucEl.classList.add('show');
+    setTimeout(()=>{closeModal('editModal');loadCustomers();},1500);
+  }catch(e){errEl.textContent='Error: '+e.message;errEl.classList.add('show');}
 }
+
+async function deleteSingleAppt(apptId,cid){
+  try{
+    const res=await fetch(`https://services.leadconnectorhq.com/calendars/events/${apptId}`,{method:'DELETE',headers:GHL_H});
+    if(!res.ok) throw new Error('Delete failed');
+    loadCustomers();
+  }catch(e){alert('Error: '+e.message);}
+}
+
+// ── RECURRING ──
+async function loadRecurring(){
+  document.getElementById('recurringList').innerHTML='<div class="loading-state">Loading...</div>';
+  try{
+    const now=new Date();
+    const end=new Date();end.setMonth(end.getMonth()+6);
+    const r=await fetch(`https://services.leadconnectorhq.com/calendars/events?locationId=${CONFIG.GHL_LOCATION_ID}&calendarId=${CONFIG.GHL_CALENDAR_ID}&startTime=${now.getTime()}&endTime=${end.getTime()}&includeAll=true`,{headers:GHL_H});
+    const data=await r.json();
+    const events=data.events||data.appointments||[];
+    const groups={};
+    const contactCache={};
+    for(const a of events){
+      const match=(a.notes||'').match(/recurring_id:(rec_\d+)/);
+      if(!match) continue;
+      const rid=match[1];
+      const cid=a.contactId||a.contact?.id;
+      if(cid&&!contactCache[cid]){
+        try{
+          const cr=await fetch(`https://services.leadconnectorhq.com/contacts/${cid}`,{headers:GHL_H});
+          const cd=await cr.json();const c=cd.contact||cd;
+          contactCache[cid]=`${c.firstName||''} ${c.lastName||''}`.trim()||'Unknown';
+        }catch(e){contactCache[cid]='Unknown';}
+      }
+      if(!groups[rid])groups[rid]={appts:[],contactName:cid?contactCache[cid]:'Unknown'};
+      groups[rid].appts.push(a);
+    }
+    Object.keys(groups).forEach(rid=>groups[rid].appts.sort((a,b)=>new Date(a.startTime)-new Date(b.startTime)));
+    allRecurringGroups=groups;
+    renderRecurring(groups);
+  }catch(e){document.getElementById('recurringList').innerHTML=`<div class="loading-state" style="color:var(--red)">Error: ${e.message}</div>`;}
+}
+
+function renderRecurring(groups){
+  const el=document.getElementById('recurringList');
+  const keys=Object.keys(groups);
+  if(!keys.length){el.innerHTML='<div class="empty-state"><div class="es-icon">🔄</div><div class="es-title">No recurring series</div><div>Book recurring appointments in the Book tab</div></div>';return;}
+  el.innerHTML=keys.map(rid=>{
+    const g=groups[rid];
+    const first=g.appts[0],last=g.appts[g.appts.length-1];
+    const firstDt=new Date(first.startTime),lastDt=new Date(last.startTime);
+    return `<div class="rec-group">
+      <div class="rec-hdr">
+        <div>
+          <div class="rec-title">🔄 ${g.contactName} — ${first.title||'Recurring'}</div>
+          <div class="rec-sub">${g.appts.length} appts · ${firstDt.toLocaleDateString('en-US',{month:'short',day:'numeric'})} → ${lastDt.toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}</div>
+        </div>
+        <div class="rec-actions">
+          <button class="btn-sm blue" onclick="openRescheduleById('${rid}')">📅 Reschedule</button>
+          <button class="btn-sm red" onclick="cancelRecurringSeries('${rid}')">✕ Cancel All</button>
+        </div>
+      </div>
+      ${g.appts.map(a=>{
+        const dt=new Date(a.startTime);
+        const ds=dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'});
+        const ts=dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
+        const status=a.appointmentStatus||a.status||'confirmed';
+        return `<div class="appt-row">
+          <div class="appt-row-left">
+            <div><div class="appt-row-date">${ds}</div><div class="appt-row-time">${ts}</div></div>
+            <span class="abadge ab-${status}">${status}</span>
+          </div>
+          <div class="appt-row-actions">
+            <button class="btn-sm" onclick="openEditSingleFromRecurring('${a.id}','${rid}')">✏️</button>
+          </div>
+        </div>`;
+      }).join('')}
+    </div>`;
+  }).join('');
+}
+
+function openRescheduleById(rid){
+  const g=allRecurringGroups[rid];
+  if(!g) return;
+  currentRescheduleAppts=g.appts;
+  const sel=document.getElementById('singleApptSelect');
+  sel.innerHTML=g.appts.map(a=>{
+    const dt=new Date(a.startTime);
+    return `<option value="${a.id}">${a.title||'Appt'} — ${dt.toLocaleDateString('en-US',{weekday:'short',month:'short',day:'numeric'})} ${dt.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'})}</option>`;
+  }).join('');
+  if(g.appts[0]){
+    const dt=new Date(g.appts[0].startTime);
+    document.getElementById('shiftTime').value=dt.toTimeString().slice(0,5);
+    document.getElementById('singleDate').value=dt.toISOString().split('T')[0];
+    document.getElementById('singleTime').value=dt.toTimeString().slice(0,5);
+  }
+  document.getElementById('rescheduleError').classList.remove('show');
+  document.getElementById('rescheduleSuccess').classList.remove('show');
+  switchRescheduleTab('shift');
+  document.getElementById('rescheduleModal').classList.add('open');
+}
+
+function openEditSingleFromRecurring(apptId,rid){
+  const appt=allRecurringGroups[rid]?.appts.find(a=>a.id===apptId);
+  if(!appt) return;
+  const dt=new Date(appt.startTime);
+  const endDt=new Date(appt.endTime||appt.startTime);
+  const durH=(endDt-dt)/3600000||2;
+  document.getElementById('editApptId').value=apptId;
+  document.getElementById('editTitle').value=appt.title||'';
+  document.getElementById('editDate').value=dt.toISOString().split('T')[0];
+  document.getElementById('editTime').value=dt.toTimeString().slice(0,5);
+  document.getElementById('editDuration').value=durH;
+  document.getElementById('editStatus').value=appt.appointmentStatus||'confirmed';
+  document.getElementById('editNotes').value=appt.notes||'';
+  document.getElementById('editError').classList.remove('show');
+  document.getElementById('editSuccess').classList.remove('show');
+  document.getElementById('editModal').classList.add('open');
+}
+
+async function cancelRecurringSeries(rid){
+  const g=allRecurringGroups[rid];
+  if(!g) return;
+  let failed=0;
+  for(const a of g.appts){
+    try{
+      const res=await fetch(`https://services.leadconnectorhq.com/calendars/events/${a.id}`,{method:'DELETE',headers:GHL_H});
+      if(!res.ok) failed++;
+    }catch(e){failed++;}
+  }
+  if(failed) alert(`${failed} could not be deleted.`);
+  loadRecurring();
+}
+
+function filterRecurring(q){
+  const filtered={};
+  Object.keys(allRecurringGroups).forEach(rid=>{
+    const g=allRecurringGroups[rid];
+    if(g.contactName.toLowerCase().includes(q.toLowerCase())) filtered[rid]=g;
+  });
+  renderRecurring(filtered);
+}
+
+// ── MODALS ──
+function closeModal(id){document.getElementById(id).classList.remove('open');}
 
 // ── INIT ──
 initCal();
 renderTimes();
-initChips('durGroup', v=>duration=v);
-initChips('freqGroup', v=>{
-  frequency=v;
-  document.getElementById('repeatWrap').style.display=v==='One Time'?'none':'block';
-  updateRepeatSummary();
-});
+initDuration();
+initFreq();
 </script>
 </body>
 </html>
