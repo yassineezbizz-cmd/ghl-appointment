@@ -643,6 +643,7 @@ document.getElementById('submitBtn').addEventListener('click',async()=>{
       try {
         // Try the correct GHL v2 objects API format
         const bookingPayload = {
+          locationId: CONFIG.GHL_LOCATION_ID,
           name: title,
           fields: {
             booking: title,
